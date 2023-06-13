@@ -60,4 +60,13 @@ macx {
 }
 
 DISTFILES += \
-    qml/GameScene.qml
+    qml/GameScene.qml \
+    qml/Ground.qml \
+    qml/GroundItem.qml \
+    qml/Mario.qml \
+    qml/PlatformerMain.qml \
+    qml/ResetSensor.qml \
+    qml/Tile.qml \
+    qml/TiledEntityBase.qml \
+    qml/level/Level1.qml \
+    qml/level/LevelBase.qml
