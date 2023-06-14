@@ -1,7 +1,8 @@
 import QtQuick 2.0
 import Felgo 3.0
 
-Row {
+TiledEntityBase{
+   Row {
     id: groundRow
     spacing: 0      //每个方块空隙为0
     anchors.bottom: parent.bottom  //对齐底部
@@ -15,17 +16,18 @@ Row {
             Image{
                 width: parent.width
                 height: parent.height/2
-                source: "../assets/img/img/map-land.png"
+                source: "../../assets/img/img/map-land.png"
                 fillMode: Image.Stretch
                 anchors.top: parent.top
             }
             Image{
                 width: parent.width
                 height: parent.height/2
-                source: "../assets/img/img/map-land.png"
+                source: "../../assets/img/img/map-land.png"
                 fillMode: Image.Stretch
                 anchors.bottom:  parent.bottom
             }
         }
     }
+  }
 }

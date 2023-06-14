@@ -4,6 +4,7 @@ import "../entities"
 import "." as Levels
 
 Levels.LevelBase {
+  anchors.bottom: parent.bottom
   id: level
   // we need to specify the width to get correct debug draw for our physics
   // the PhysicsWorld component fills it's parent by default, which is the viewPort Item of the gameScene and this item uses the size of the level
@@ -13,39 +14,85 @@ Levels.LevelBase {
   // you could draw your level on a graph paper and then add the tiles here only by defining their row, column and size
 
   Coinbrick{
-      row: 10
-      column: 0
+      row: 8
+      column: 5
       size: 4
   }
 
   Ordinarybrick{
-      row:14
-      column: 0
+      row:15
+      column: 5
       size: 4
   }
 
   Mushroombrick{
       row:15
-      column: 0
+      column: 5
       size: 4
   }
 
   Ordinarybrick{
       row:16
-      column: 0
+      column: 5
       size: 4
   }
 
   Coinbrick{
       row: 17
-      column: 0
+      column: 5
       size: 4
   }
 
   Coinbrick{
       row: 16
-      column: 3
+      column: 8
       size:4
   }
+
+  GroundItem{
+      row:0
+      column: 0
+      size: 4
+  }
+
+  GroundItem{
+      row:10
+      column: 0
+      size: 4
+  }
+
+  GroundItem{
+      row:23
+      column: 0
+      size: 4
+  }
+
+
+  Ordinarybrick{
+      row:26
+      column: 5
+      size: 4
+  }
+
+  Mushroombrick{
+      row:27
+      column: 5
+      size: 4
+  }
+
+
+  Ordinarybrick{
+      row:28
+      column: 5
+      size: 4
+  }
+
+
+  GroundItem{
+      row:36
+      column: 0
+      size: 4
+  }
+
 
 }

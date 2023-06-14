@@ -25,35 +25,7 @@ Scene {
         ratio: Qt.point(0.3,0)
     }
 
-    //创建地面方块
-    Row {
-        id: groundRow
-        spacing: 0      //每个方块空隙为0
-        anchors.bottom: parent.bottom  //对齐底部
-        Repeater {
-            id: groundRepeater
-            model:100//gameWindow.width/32
-            delegate: Rectangle{
-                id:groundColumn
-                width: 32
-                height: width*2
-                Image{
-                    width: parent.width
-                    height: parent.height/2
-                    source: "../assets/img/img/map-land.png"
-                    fillMode: Image.Stretch
-                    anchors.top: parent.top
-                }
-                Image{
-                    width: parent.width
-                    height: parent.height/2
-                    source: "../assets/img/img/map-land.png"
-                    fillMode: Image.Stretch
-                    anchors.bottom:  parent.bottom
-                }
-            }
-        }
-    }
+
 
 
 //    Timer {
@@ -82,7 +54,7 @@ Scene {
     Mario {
         id: mario
         x: 50// 设置初始位置
-        y: groundRow.y
+        y: 383
         anchors.bottom: groundRow.top
 
 
