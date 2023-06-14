@@ -80,29 +80,39 @@ Scene {
         x:128
         anchors.bottom: groundRow.top
     }
-
-    Keys.onPressed: {
-        // 左键按下
-        console.log("turn left")
-        if (event.key ===  Qt.Key_Left) {
-
-            mario.mirrored= true
-            mario.source = "../assets/img/img/basePerson.gif" // 设置为奔跑状态的GIF
-
+    Keys.forwardTo: controller
+    TwoAxisController {
+      id: controller
+      onInputActionPressed: {
+        console.debug("key pressed actionName " + actionName)
+        if(actionName == "left") {
+            console.log("turn left")
+            mario.changeState("../../assets/img/img/basePersonL.gif")
         }
-
-        // 右键按下
-        if (event.key === Qt.Key_Right) {
-            mario.mirrored=false
-            mario.source = "../assets/img/img/basePerson.gif" // 设置为奔跑状态的GIF
-
+        if(actionName == "right") {
+            console.log("turn right")
+            mario.changeState("../../assets/img/img/basePerson.gif")
         }
+      }
     }
+
+//    Keys.onLeftPressed: {
+//        // 左键按下
+//        console.log("turn left")
+//        mario.changeState("../../assets/img/img/basePersonL.gif") // 设置为奔跑状态的GIF
+//    }
+//    Keys.onRightPressed: {
+//        // 左键按下
+//        console.log("turn Right")
+//        mario.changeState("../../assets/img/img/basePerson.gif") // 设置为奔跑状态的GIF
+//    }
 
     Keys.onReleased: {
         // 左键或右键松开
-        if (event.key === Qt.Key_Left || event.key === Qt.Key_Right) {
-            mario.source = "../assets/img/img/basePerson.png" // 设置为直立状态的GIF
+        if (event.key === Qt.Key_Left) {
+            mario.changeState("../../assets/img/img/basePersonL.png")
+        }else if(event.key === Qt.Key_Right){
+            mario.changeState("../../assets/img/img/basePerson.png")
         }
     }
 

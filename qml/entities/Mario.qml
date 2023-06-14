@@ -12,11 +12,11 @@ EntityBase {
         anchors.centerIn: parent
         source: "../../assets/img/img/basePerson.png"
 
-
-
     }
 
-
+    function changeState(source){
+        mario.source =source
+}
 
 
 }
