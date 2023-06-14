@@ -1,6 +1,10 @@
 import QtQuick 2.0
 import Felgo 3.0
 import "entities"
+import QtLocation 5.15
+
+import "levels"
+import QtPositioning 5.15
 
 // EMPTY SCENE
 
@@ -28,7 +32,7 @@ Scene {
         anchors.bottom: parent.bottom  //对齐底部
         Repeater {
             id: groundRepeater
-            model:gameWindow.width/32
+            model:100//gameWindow.width/32
             delegate: Rectangle{
                 id:groundColumn
                 width: 32
@@ -77,35 +81,57 @@ Scene {
 
     Mario {
         id: mario
-        x:128
+        x: 50// 设置初始位置
+        y: groundRow.y
         anchors.bottom: groundRow.top
-    }
-    Keys.forwardTo: controller
-    TwoAxisController {
-      id: controller
-      onInputActionPressed: {
-        console.debug("key pressed actionName " + actionName)
-        if(actionName == "left") {
-            console.log("turn left")
-            mario.changeState("../../assets/img/img/basePersonL.gif")
-        }
-        if(actionName == "right") {
-            console.log("turn right")
-            mario.changeState("../../assets/img/img/basePerson.gif")
-        }
-      }
+
+
     }
 
-//    Keys.onLeftPressed: {
-//        // 左键按下
-//        console.log("turn left")
-//        mario.changeState("../../assets/img/img/basePersonL.gif") // 设置为奔跑状态的GIF
-//    }
-//    Keys.onRightPressed: {
-//        // 左键按下
-//        console.log("turn Right")
-//        mario.changeState("../../assets/img/img/basePerson.gif") // 设置为奔跑状态的GIF
-//    }
+    Level1{
+        id:level
+    }
+
+    Keys.onLeftPressed: {
+        // 左键按下
+        //mario.x -=10
+        level.x+=10
+        gameScene.x-=10
+        console.log("turn left")
+        mario.changeState("../../assets/img/img/basePersonL.gif") // 设置为奔跑状态的GIF
+        for (var i = 0; i < groundRepeater.count; i++) {
+                         var groundBlock = groundRepeater.itemAt(i)
+                         groundBlock.x += 10
+
+                    }
+        if(mario.x > gameWindow.width*0.1){
+            mario.x-=5
+        }
+
+
+    }
+
+
+
+
+
+    Keys.onRightPressed: {
+        // 左键按下
+        //mario.x += 10
+        level.x -= 10
+        gameScene.x +=10
+        console.log("turn Right")
+        mario.changeState("../../assets/img/img/basePerson.gif") // 设置为奔跑状态的GIF
+        for (var i = 0; i < groundRepeater.count; i++) {
+                         var groundBlock = groundRepeater.itemAt(i)
+
+                          groundBlock.x -= 10
+                    }
+        if(mario.x<gameWindow.width*0.4){
+            mario.x+=5
+        }
+
+    }
 
     Keys.onReleased: {
         // 左键或右键松开
@@ -115,5 +141,8 @@ Scene {
             mario.changeState("../../assets/img/img/basePerson.png")
         }
     }
+
+
+
 
 }

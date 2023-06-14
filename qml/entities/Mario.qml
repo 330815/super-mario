@@ -16,7 +16,25 @@ EntityBase {
 
     function changeState(source){
         mario.source =source
+        mario.playing=true
 }
+
+    /*onXChanged: {
+        if(player.x < gameWindow.width * 0.01) {
+             gameScene.x -= player.x
+            player.x = gameWindow.width * 0.01
+        }
+        if(player.x > gameWindow.width * 0.01) {
+             gameScene.x += player.x
+            player.x = gameWindow.width * 0.01
+        }
+
+    }*/
+
+
+
+
+
 
 
 }
