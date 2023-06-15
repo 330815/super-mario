@@ -23,4 +23,5 @@ GameWindow {
     GameScene {
         id: gameScene
     }
+
 }
