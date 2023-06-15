@@ -1,6 +1,7 @@
 import Felgo 3.0
 import QtQuick 2.0
 import QtLocation 5.15
+import "common"
 
 GameWindow {
     id: gameWindow
@@ -21,6 +22,9 @@ GameWindow {
     screenWidth: 960
     screenHeight: 640
 
+    onActiveSceneChanged: {
+      audioManager.handleMusic()
+    }
 
 
     GameScene {

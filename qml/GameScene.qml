@@ -5,6 +5,7 @@ import QtLocation 5.15
 
 import "levels"
 import QtPositioning 5.15
+import "common"
 
 // EMPTY SCENE
 
@@ -14,11 +15,18 @@ Scene {
     height: 480
     gridSize: 32
     property int offsetBeforeScrollingStarts: 240
+    AudioManager {
+      id: audioManager
+    }
 
     EntityManager {
         id: entityManager
     }
 
+    State {
+      name: "play"
+      StateChangeScript {script: audioManager.handleMusic()}
+    }
     //主背景
     ParallaxScrollingBackground {
         sourceImage: "../assets/img/gk1.jpg"

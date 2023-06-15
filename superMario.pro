@@ -69,6 +69,7 @@ DISTFILES += \
     qml/ResetSensor.qml \
     qml/Tile.qml \
     qml/TiledEntityBase.qml \
+    qml/common/AudioManager.qml \
     qml/entities/Coinbrick.qml \
     qml/entities/Mushroom.qml \
     qml/entities/Mushroombrick.qml \
