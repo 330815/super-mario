@@ -1,5 +1,7 @@
 import Felgo 3.0
 import QtQuick 2.0
+import QtLocation 5.15
+import "common"
 
 GameWindow {
     id: gameWindow
@@ -23,6 +25,10 @@ GameWindow {
     GameScene {
         id: gameScene
         anchors.left: parent.left
+
     }
+
+
+
 
 }

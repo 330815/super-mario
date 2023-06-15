@@ -62,11 +62,17 @@ macx {
 DISTFILES += \
     qml/GameScene.qml \
     qml/Ground.qml \
-    qml/GroundItem.qml \
+    qml/LevelBase.qml \
     qml/Mario.qml \
     qml/PlatformerMain.qml \
     qml/ResetSensor.qml \
     qml/Tile.qml \
     qml/TiledEntityBase.qml \
+    qml/common/AudioManager.qml \
+    qml/entities/Coinbrick.qml \
+    qml/entities/Mushroom.qml \
+    qml/entities/Mushroombrick.qml \
+    qml/entities/Ordinarybrick.qml \
     qml/level/Level1.qml \
-    qml/level/LevelBase.qml
+    qml/level/LevelBase.qml \
+    qml/levels/Level1.qml
