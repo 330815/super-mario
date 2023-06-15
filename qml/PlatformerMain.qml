@@ -22,11 +22,6 @@ GameWindow {
     screenWidth: 960
     screenHeight: 640
 
-    onActiveSceneChanged: {
-      audioManager.handleMusic()
-    }
-
-
     GameScene {
         id: gameScene
         anchors.left: parent.left

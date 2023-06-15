@@ -14,9 +14,11 @@ Scene {
     width: 480
     height: 480
     gridSize: 32
+    //马里奥固定位置X坐标
     property int offsetBeforeScrollingStarts: 240
+
     AudioManager {
-      id: audioManager
+        id: audioManager
     }
 
     EntityManager {
@@ -24,8 +26,8 @@ Scene {
     }
 
     State {
-      name: "play"
-      StateChangeScript {script: audioManager.handleMusic()}
+        name: "play"
+        StateChangeScript {script: audioManager.handleMusic()}
     }
     //主背景
     ParallaxScrollingBackground {
@@ -61,7 +63,7 @@ Scene {
 
 
     Item{
-        //        id: viewPort
+        id: viewPort
         height: level.height
         width: level.width
         anchors.bottom: gameScene.gameWindowAnchorItem.bottom
@@ -70,21 +72,21 @@ Scene {
 
         PhysicsWorld {
             id: physicsWorld
-//                        gravity: Qt.point(0, 25)
-//                        debugDrawVisible: true // enable this for physics debugging
-//                        z: 1000
+            gravity: Qt.point(0, 8)
+            //                        debugDrawVisible: true // enable this for physics debugging
+            z: 1000
 
-//                        onPreSolve: {
-//                            //this is called before the Box2DWorld handles contact events
-//                            var entityA = contact.fixtureA.getBody().target
-//                            var entityB = contact.fixtureB.getBody().target
-//                            if(entityB.entityType === "platform" && entityA.entityType === "mario" &&
-//                                    entityA.y + entityA.height > entityB.y) {
-//                                //by setting enabled to false, they can be filtered out completely
-//                                //-> disable cloud platform collisions when the player is below the platform
-//                                contact.enabled = false
-//                            }
-//                        }
+            onPreSolve: {
+                //this is called before the Box2DWorld handles contact events
+                var entityA = contact.fixtureA.getBody().target
+                var entityB = contact.fixtureB.getBody().target
+                if(entityB.entityType === "platform" && entityA.entityType === "mario" &&
+                        entityA.y + entityA.height > entityB.y) {
+                    //by setting enabled to false, they can be filtered out completely
+                    //-> disable cloud platform collisions when the player is below the platform
+                    contact.enabled = false
+                }
+            }
         }
         Level1{
             id:level
@@ -105,34 +107,56 @@ Scene {
         id: controller
         onInputActionPressed: {
             console.debug("key pressed actionName " + actionName)
-            if(actionName == "left") {
-                // 左键按下
-                console.log("turn left")
-                mario.changeState("../../assets/img/img/basePersonL.gif") // 设置为奔跑状态的GIF
-                mario.changeDirection(actionName)//修改方向
-            }
-            if(actionName == "right") {
-                // 左键按下
-                console.log("turn right")
-                mario.changeState("../../assets/img/img/basePerson.gif") // 设置为奔跑状态的GIF
-                mario.changeDirection(actionName)//修改方向
+            if(mario.state == "walking"){
+                if(actionName == "left") {
+                    // 左键按下
+                    console.log("turn left")
+                    mario.changeState("../../assets/img/img/basePersonL.gif") // 设置为奔跑状态的GIF
+                    mario.changeDirection(actionName)//修改方向
+                }
+                if(actionName == "right") {
+                    // 左键按下
+                    console.log("turn right")
+                    mario.changeState("../../assets/img/img/basePerson.gif") // 设置为奔跑状态的GIF
+                    mario.changeDirection(actionName)//修改方向
+                }
+            }else if(mario.state == "jumping"){
+                if(actionName == "left") {
+                    // 左键按下
+                    console.log("turn left")
+                    mario.changeState("../../assets/img/img/basePersonUpL.png")
+                    mario.changeDirection(actionName)//修改方向
+                }
+                if(actionName == "right") {
+                    // 左键按下
+                    console.log("turn right")
+                    mario.changeState("../../assets/img/img/basePersonUp.png")
+                    mario.changeDirection(actionName)//修改方向
+                }
             }
             if(actionName == "up") {
                 console.log("jump")
                 mario.jump()
-                if(mario.isRight){
-                    mario.changeState("../../assets/img/img/basePersonUp.png")  //rightJump
-                }else{
-                    mario.changeState("../../assets/img/img/basePersonUpL.png") //leftJump
-                }
+                //                if(mario.isRight){
+                //                    mario.changeState("../../assets/img/img/basePersonUp.png")  //rightJump
+                //                }else{
+                //                    mario.changeState("../../assets/img/img/basePersonUpL.png") //leftJump
+                //                }
             }
         }
         onInputActionReleased: {
-            if(mario.isRight){
-                mario.changeState("../../assets/img/img/basePerson.png")
-            }else{
+            if(mario.state == "walking"){
+//                        marioImage.source = isRight ? "../../assets/img/img/basePerson.gif":"../../assets/img/img/basePersonL.gif"
+//                        marioImage.playing=true
+                if(actionName == "left") {
                 mario.changeState("../../assets/img/img/basePersonL.png")
             }
+            if(actionName == "right") {
+                mario.changeState("../../assets/img/img/basePerson.png")
+            }
+
+                    }
+
 
         }
     }

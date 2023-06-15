@@ -4,7 +4,6 @@ import "../entities"
 import "." as Levels
 
 Levels.LevelBase {
-  anchors.bottom: parent.bottom
   id: level
   // we need to specify the width to get correct debug draw for our physics
   // the PhysicsWorld component fills it's parent by default, which is the viewPort Item of the gameScene and this item uses the size of the level
@@ -52,19 +51,19 @@ Levels.LevelBase {
   GroundItem{
       row:0
       column: 0
-      size: 4
+      size: 14
   }
 
   GroundItem{
       row:10
       column: 0
-      size: 4
+      size: 8
   }
 
   GroundItem{
       row:23
       column: 0
-      size: 4
+      size: 10
   }
 
 

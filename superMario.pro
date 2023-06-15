@@ -62,7 +62,6 @@ macx {
 DISTFILES += \
     qml/GameScene.qml \
     qml/Ground.qml \
-    qml/GroundItem.qml \
     qml/LevelBase.qml \
     qml/Mario.qml \
     qml/PlatformerMain.qml \

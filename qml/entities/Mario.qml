@@ -2,14 +2,14 @@ import Felgo 3.0
 import QtQuick 2.0
 
 EntityBase {
-    id:player
+    id:mario
     height: 32
     width: 32
-    entityType: "player"
+    entityType: "mario"
     //修改马里奥的运动状态资源
     function changeState(source){
-        mario.source =source
-        mario.playing = true
+        marioImage.source =source
+        marioImage.playing = true
 
     }
     function changeDirection(actionName){
@@ -28,20 +28,34 @@ EntityBase {
     //实现马里奥跳跃
     function jump() {
         console.debug("jump requested at player.state " + state)
-        //if(player.state == "walking") {
+        if(mario.state == "walking") {
         console.debug("do the jump")
         // for the jump, we simply set the upwards velocity of the collider
-        collider.linearVelocity.y = -30
+        collider.linearVelocity.y = -300
         //}
+    }
     }
     //添加别名
     property alias collider: collider
     property alias horizontalVelocity: collider.linearVelocity.x
     //derection
     property bool isRight:true  //默认马里奥朝右
+    // the contacts property is used to determine if the player is in touch with any solid objects (like ground or platform), because in this case the player is walking, which enables the ability to jump. contacts > 0 --> walking state
+    property int contacts: 0
+    // property binding to determine the state of the player like described abovestate = "jumping"
+    state: contacts > 0 ? "walking" : "jumping"
+    onStateChanged: {
+        if(state == "jumping"){
+            marioImage.source = isRight ? "../../assets/img/img/basePersonUp.png":"../../assets/img/img/basePersonUpL.png"
+        }/*else if(mario.state == "walking"){
+            marioImage.source = isRight ? "../../assets/img/img/basePerson.gif":"../../assets/img/img/basePersonL.gif"
+            marioImage.playing=true
+        }*/
+        console.debug("mario.state " + state)
+    }
     //马里奥外观
     AnimatedImage {
-        id: mario
+        id: marioImage
         anchors.centerIn: parent
         source: "../../assets/img/img/basePerson.png"
         playing: true
@@ -50,7 +64,7 @@ EntityBase {
     BoxCollider {
         id: collider
         height: parent.height
-        width: 30
+        width: 32
         anchors.horizontalCenter: parent.horizontalCenter
         // 动态 this collider must be dynamic because we are moving it by applying forces and impulses
         bodyType: Body.Dynamic // this is the default value but I wanted to mention it ;)
@@ -78,8 +92,8 @@ EntityBase {
             var xAxis = controller.xAxis;
             // if xAxis is 0 (no movement command) we slow the player down until he stops
             if(xAxis == 0) {
-                if(Math.abs(player.horizontalVelocity) > 10) player.horizontalVelocity /= 1.5
-                else player.horizontalVelocity = 0
+                if(Math.abs(mario.horizontalVelocity) > 10) mario.horizontalVelocity /= 1.5
+                else mario.horizontalVelocity = 0
             }
         }
     }

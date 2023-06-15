@@ -2,7 +2,6 @@ import QtQuick 2.0
 import Felgo 3.0
 
 EntityBase {
-
     id: tiledEntity
     property int column: 0
     property int row: 0
