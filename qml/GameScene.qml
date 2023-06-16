@@ -40,27 +40,6 @@ Scene {
         ratio: Qt.point(0.3,0)
     }
 
-    //        Timer {
-    //                id: groundMovementTimer
-    //                interval: 50
-    //                running: true
-    //                repeat: true
-    //                onTriggered: {
-    //                    // 移动地面块
-    //                    for (var i = 0; i < groundRepeater.count; i++) {
-    //                        var groundBlock = groundRepeater.itemAt(i)
-    //                        groundBlock.x -= 5
-    //                    }
-    //                    // 动态添加新的地面块
-    //                   for (var j = 0; j < groundRepeater.count; j++) {
-    //                         groundBlock = groundRepeater.itemAt(j)
-    //                        if (groundBlock.x + groundBlock.width < 0) {
-    //                            groundBlock.x += groundRepeater.count * groundBlock.width
-    //                        }
-    //                    }
-    //                }
-    //            }
-
 
     Item{
         id: viewPort
@@ -72,21 +51,8 @@ Scene {
 
         PhysicsWorld {
             id: physicsWorld
-            gravity: Qt.point(0, 8)
-            //                        debugDrawVisible: true // enable this for physics debugging
+            gravity: Qt.point(0, 30)
             z: 1000
-
-            onPreSolve: {
-                //this is called before the Box2DWorld handles contact events
-                var entityA = contact.fixtureA.getBody().target
-                var entityB = contact.fixtureB.getBody().target
-                if(entityB.entityType === "platform" && entityA.entityType === "mario" &&
-                        entityA.y + entityA.height > entityB.y) {
-                    //by setting enabled to false, they can be filtered out completely
-                    //-> disable cloud platform collisions when the player is below the platform
-                    contact.enabled = false
-                }
-            }
         }
         Level1{
             id:level
@@ -96,8 +62,6 @@ Scene {
             x:128
             y:100
         }
-
-
     }
 
 
@@ -105,61 +69,53 @@ Scene {
     //控制多轴运动
     TwoAxisController {
         id: controller
+        //处理按键变化时，图片的变化
         onInputActionPressed: {
-            console.debug("key pressed actionName " + actionName)
             if(mario.state == "walking"){
                 if(actionName == "left") {
                     // 左键按下
-                    console.log("turn left")
+                    mario.isPress = true
                     mario.changeState("../../assets/img/img/basePersonL.gif") // 设置为奔跑状态的GIF
                     mario.changeDirection(actionName)//修改方向
                 }
                 if(actionName == "right") {
-                    // 左键按下
-                    console.log("turn right")
+                    // 右键按下
+                    mario.isPress = true
                     mario.changeState("../../assets/img/img/basePerson.gif") // 设置为奔跑状态的GIF
                     mario.changeDirection(actionName)//修改方向
                 }
             }else if(mario.state == "jumping"){
                 if(actionName == "left") {
                     // 左键按下
-                    console.log("turn left")
+                    mario.isPress = true
                     mario.changeState("../../assets/img/img/basePersonUpL.png")
                     mario.changeDirection(actionName)//修改方向
                 }
                 if(actionName == "right") {
-                    // 左键按下
-                    console.log("turn right")
+                    // 右键按下
+                    mario.isPress = true
                     mario.changeState("../../assets/img/img/basePersonUp.png")
                     mario.changeDirection(actionName)//修改方向
                 }
             }
-            if(actionName == "up") {
-                console.log("jump")
+            if(actionName == "up") {    //跳跃
                 mario.jump()
-                //                if(mario.isRight){
-                //                    mario.changeState("../../assets/img/img/basePersonUp.png")  //rightJump
-                //                }else{
-                //                    mario.changeState("../../assets/img/img/basePersonUpL.png") //leftJump
-                //                }
             }
         }
         onInputActionReleased: {
             if(mario.state == "walking"){
-//                        marioImage.source = isRight ? "../../assets/img/img/basePerson.gif":"../../assets/img/img/basePersonL.gif"
-//                        marioImage.playing=true
                 if(actionName == "left") {
-                mario.changeState("../../assets/img/img/basePersonL.png")
+                    mario.isPress = false
+                    mario.changeState("../../assets/img/img/basePersonL.png")
+                }else if(actionName == "right") {
+                    mario.isPress = false
+                    mario.changeState("../../assets/img/img/basePerson.png")
+                }
+            }else if(mario.state == "jumping"){
+                if(actionName == "left" || actionName == "right") {
+                    mario.isPress = false
+                }
             }
-            if(actionName == "right") {
-                mario.changeState("../../assets/img/img/basePerson.png")
-            }
-
-                    }
-
-
         }
     }
-
-
 }

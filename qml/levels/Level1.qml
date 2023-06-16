@@ -11,6 +11,44 @@ Levels.LevelBase {
   width: 42 * gameScene.gridSize // 42 because our last tile is a size 30 Ground at row 12
 
   // you could draw your level on a graph paper and then add the tiles here only by defining their row, column and size
+  //---------------地面-------------
+  GroundItem{
+      row:0
+      column: 0
+      size: 17
+  }
+  GroundItem{
+      row:0
+      column: 1
+      size: 17
+  }
+
+  GroundItem{
+      row:20
+      column: 0
+      size: 15
+  }
+
+  GroundItem{
+      row:20
+      column: 1
+      size: 15
+  }
+
+  GroundItem{
+      row:37
+      column: 0
+      size: 30
+  }
+  GroundItem{
+      row:37
+      column: 1
+      size: 30
+  }
+
+
+
+
 
   Coinbrick{
       row: 8
@@ -48,25 +86,6 @@ Levels.LevelBase {
       size:4
   }
 
-  GroundItem{
-      row:0
-      column: 0
-      size: 14
-  }
-
-  GroundItem{
-      row:10
-      column: 0
-      size: 8
-  }
-
-  GroundItem{
-      row:23
-      column: 0
-      size: 10
-  }
-
-
   Ordinarybrick{
       row:26
       column: 5
@@ -86,12 +105,6 @@ Levels.LevelBase {
       size: 4
   }
 
-
-  GroundItem{
-      row:36
-      column: 0
-      size: 4
-  }
 
 
 }

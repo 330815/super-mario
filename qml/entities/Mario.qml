@@ -27,31 +27,37 @@ EntityBase {
 
     //实现马里奥跳跃
     function jump() {
-        console.debug("jump requested at player.state " + state)
+        console.debug("jump requested at mario.state " + state)
         if(mario.state == "walking") {
         console.debug("do the jump")
         // for the jump, we simply set the upwards velocity of the collider
-        collider.linearVelocity.y = -300
-        //}
-    }
+        collider.linearVelocity.y = -550
+        }
     }
     //添加别名
     property alias collider: collider
     property alias horizontalVelocity: collider.linearVelocity.x
     //derection
     property bool isRight:true  //默认马里奥朝右
+    //left-right press
+    property bool isPress: false //默认没按下
     // the contacts property is used to determine if the player is in touch with any solid objects (like ground or platform), because in this case the player is walking, which enables the ability to jump. contacts > 0 --> walking state
     property int contacts: 0
     // property binding to determine the state of the player like described abovestate = "jumping"
     state: contacts > 0 ? "walking" : "jumping"
+
     onStateChanged: {
-        if(state == "jumping"){
+        //处理状态变化时，图片的变化
+        if(state == "jumping"){ //跳跃时，，左右跳跃的状态
             marioImage.source = isRight ? "../../assets/img/img/basePersonUp.png":"../../assets/img/img/basePersonUpL.png"
-        }/*else if(mario.state == "walking"){
-            marioImage.source = isRight ? "../../assets/img/img/basePerson.gif":"../../assets/img/img/basePersonL.gif"
+        }else if(state == "walking"){   //更改到行走状态时，判断左右按键是否还在按下，进行选择运动还是站立
+            if(isPress){
+                marioImage.source = isRight ? "../../assets/img/img/basePerson.gif":"../../assets/img/img/basePersonL.gif"
+            }else{
+                marioImage.source = isRight ? "../../assets/img/img/basePerson.png":"../../assets/img/img/basePersonL.png"
+            }
             marioImage.playing=true
-        }*/
-        console.debug("mario.state " + state)
+        }
     }
     //马里奥外观
     AnimatedImage {
