@@ -6,6 +6,7 @@ EntityBase {
     height: 32
     width: 32
     entityType: "mario"
+
     //修改马里奥的运动状态资源
     function changeState(source){
         marioImage.source =source
@@ -27,12 +28,12 @@ EntityBase {
 
     //实现马里奥跳跃
     function jump() {
-        console.debug("jump requested at mario.state " + state)
         if(mario.state == "walking") {
-        console.debug("do the jump")
         // for the jump, we simply set the upwards velocity of the collider
         collider.linearVelocity.y = -550
+        audioManager.playSound("marioJump")
         }
+
     }
     //添加别名
     property alias collider: collider
@@ -83,8 +84,16 @@ EntityBase {
         onLinearVelocityChanged: {
             if(linearVelocity.x > 140) linearVelocity.x = 140
             if(linearVelocity.x < -140) linearVelocity.x = -140
+
         }
     }
+    //马里奥不允许出左边界
+    onXChanged: {
+        if (x < 0) {
+            x = 0
+        }
+    }
+
     //实现减速
     Timer {
         id: updateTimer

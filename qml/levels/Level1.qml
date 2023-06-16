@@ -15,33 +15,33 @@ Levels.LevelBase {
   GroundItem{
       row:0
       column: 0
-      size: 17
+      size: 30
   }
   GroundItem{
       row:0
       column: 1
-      size: 17
+      size: 30
   }
 
   GroundItem{
-      row:20
+      row:32
       column: 0
       size: 15
   }
 
   GroundItem{
-      row:20
+      row:32
       column: 1
       size: 15
   }
 
   GroundItem{
-      row:37
+      row:47
       column: 0
       size: 30
   }
   GroundItem{
-      row:37
+      row:47
       column: 1
       size: 30
   }

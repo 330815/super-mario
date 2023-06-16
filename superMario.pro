@@ -60,11 +60,13 @@ macx {
 }
 
 DISTFILES += \
-    qml/GameScene.qml \
+    assets/Sounds/lose.wav \
+    qml/scenes/DeathScene.qml \
+    qml/scenes/GameScene.qml \
+    qml/scenes/StartScene.qml \
     qml/Ground.qml \
     qml/LevelBase.qml \
     qml/Mario.qml \
-    qml/PlatformerMain.qml \
     qml/ResetSensor.qml \
     qml/Tile.qml \
     qml/TiledEntityBase.qml \
@@ -75,4 +77,5 @@ DISTFILES += \
     qml/entities/Ordinarybrick.qml \
     qml/level/Level1.qml \
     qml/level/LevelBase.qml \
-    qml/levels/Level1.qml
+    qml/levels/Level1.qml \
+    qml/supermarioMain.qml

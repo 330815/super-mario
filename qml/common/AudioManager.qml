@@ -15,10 +15,18 @@ Item {
       autoPlay: true
 
       source: "../../assets/Themes/Overworld.mp3"
+
+    }
+    //跳跃音效
+    SoundEffect {
+      id: marioJump
+      source: "../../assets/Sounds/JumpSmall.wav"
     }
 
     function handleMusic() {
-        audioManager.startMusic(bgMusic)
+        if(activeScene === gameScene) {
+            audioManager.startMusic(bgMusic)
+        }
     }
 
     function startMusic(music) {
@@ -33,4 +41,8 @@ Item {
       music.play()
     }
 
+    function playSound(sound) {
+      if(sound === "marioJump"){
+        marioJump.play()}
+    }
 }

@@ -1,16 +1,13 @@
 import QtQuick 2.0
 import Felgo 3.0
-import "entities"
-import QtLocation 5.15
+import "../entities"
 
-import "levels"
-import QtPositioning 5.15
-import "common"
-
-// EMPTY SCENE
+import "../levels"
+import "../common"
 
 Scene {
     id:gameScene
+    opacity:0
     width: 480
     height: 480
     gridSize: 32
@@ -29,16 +26,7 @@ Scene {
         name: "play"
         StateChangeScript {script: audioManager.handleMusic()}
     }
-    //主背景
-    ParallaxScrollingBackground {
-        sourceImage: "../assets/img/gk1.jpg"
-        movementVelocity: Qt.point(-10,0)
-        //height: parent.height
-        anchors.left: gameScene.gameWindowAnchorItem.left
-        //anchors.horizontalCenter: gameScene.gameWindowAnchorItem.horizontalCenter
-        // the speed then gets multiplied by this ratio to create the parallax effect
-        ratio: Qt.point(0.3,0)
-    }
+
 
 
     Item{
@@ -46,9 +34,15 @@ Scene {
         height: level.height
         width: level.width
         anchors.bottom: gameScene.gameWindowAnchorItem.bottom
-        //anchors.bottom: groundRow.top
         x: mario.x > offsetBeforeScrollingStarts ? offsetBeforeScrollingStarts-mario.x : 0
-
+        //主背景
+        BackgroundImage{
+            source: "../../assets/img/gk1.jpg"
+            z:0     //最底层
+            width: 12000
+            fillMode: Image.TileHorizontally    //水平平铺
+            anchors.left: gameScene.gameWindowAnchorItem.left   //左对齐
+        }
         PhysicsWorld {
             id: physicsWorld
             gravity: Qt.point(0, 30)
@@ -56,11 +50,12 @@ Scene {
         }
         Level1{
             id:level
+            z:100
         }
+
         Mario {
             id: mario
             x:128
-            y:100
         }
     }
 

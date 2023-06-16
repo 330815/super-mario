@@ -2,6 +2,7 @@ import Felgo 3.0
 import QtQuick 2.0
 import QtLocation 5.15
 import "common"
+import "scenes"
 
 GameWindow {
     id: gameWindow
@@ -13,7 +14,7 @@ GameWindow {
     //  * Add plugins to monetize, analyze & improve your apps (available with the Pro Licenses)
     //licenseKey: "<generate one from https://felgo.com/licenseKey>"
 
-    activeScene: gameScene
+    activeScene: deathScene
 
     // the size of the Window can be changed at runtime by pressing Ctrl (or Cmd on Mac) + the number keys 1-8
     // the content of the logical scene size (480x320 for landscape mode by default) gets scaled to the window size based on the scaleMode
@@ -28,7 +29,31 @@ GameWindow {
 
     }
 
+    DeathScene {
+        id: deathScene
+        anchors.left: parent.left
+        onGametest: {
+          // switch to gameScene
+          gameWindow.state = "game"
+        }
+    }
 
+     //states
+    state: "death"
+
+    // this state machine handles the transition between scenes
+    states: [
+        State {
+            name: "game"
+            PropertyChanges {target: gameScene; opacity: 1}
+            PropertyChanges {target: gameWindow; activeScene: gameScene}
+        },
+        State {
+            name: "death"
+            PropertyChanges {target: deathScene; opacity: 1}
+            PropertyChanges {target: gameWindow; activeScene: deathScene}
+        }
+    ]
 
 
 }
