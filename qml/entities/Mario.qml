@@ -78,6 +78,7 @@ EntityBase {
             if(linearVelocity.x > 140) linearVelocity.x = 140
             if(linearVelocity.x < -140) linearVelocity.x = -140
         }
+
     }
     //实现减速
     Timer {

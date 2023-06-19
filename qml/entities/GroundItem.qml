@@ -27,16 +27,24 @@ TiledEntityBase{
     }
   }
    BoxCollider {
-     anchors.fill: parent
+     anchors.centerIn: parent
      bodyType: Body.Static
+     height: parent.height
+     width: parent.width
+     categories: Box.Category4
+
      //和马里奥碰撞
      fixture.onBeginContact: {
        var otherEntity = other.getBody().target
        if(otherEntity.entityType === "mario") mario.contacts++
-     }
+
+}
+
      fixture.onEndContact: {
        var otherEntity = other.getBody().target
        if(otherEntity.entityType === "mario") mario.contacts--
+
      }
    }
-}
+  }
+

@@ -40,7 +40,7 @@ TiledEntityBase {
 
 
     }*/
-
+  //砖块被顶后上下移动的动画
     SequentialAnimation{
        id:brickrise
        NumberAnimation{
@@ -69,21 +69,14 @@ TiledEntityBase {
       id: collider
       anchors.fill: parent
       bodyType: Body.Static
-
-
-
-
+      
       fixture.onBeginContact: {
         var otherEntity = other.getBody().target
-
-
       } 
 
       fixture.onEndContact: {
         var otherEntity = other.getBody().target
-        if(otherEntity.entityType === "mario"&& mario.y>mushroomBrick.y+25 && mario.x>mushroomBrick.x-31 ) {
-            console.log(mario.x)
-            console.log(mushroomBrick.x)
+        if(otherEntity.entityType === "mario"&& mario.y>mushroomBrick.y+25 && mario.x>mushroomBrick.x-31 ) {   //控制马里奥顶砖的有效范围
           console.debug("contact platform end")
            brickrise.start()
            textmushroom.appearl()

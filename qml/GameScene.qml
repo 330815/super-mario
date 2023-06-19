@@ -76,26 +76,27 @@ Scene {
             //                        debugDrawVisible: true // enable this for physics debugging
             z: 1000
 
-            onPreSolve: {
-                //this is called before the Box2DWorld handles contact events
-                var entityA = contact.fixtureA.getBody().target
-                var entityB = contact.fixtureB.getBody().target
-                if(entityB.entityType === "platform" && entityA.entityType === "mario" &&
-                        entityA.y + entityA.height > entityB.y) {
-                    //by setting enabled to false, they can be filtered out completely
-                    //-> disable cloud platform collisions when the player is below the platform
-                    contact.enabled = false
-                }
-            }
+//            onPreSolve: {
+//                //this is called before the Box2DWorld handles contact events
+//                var entityA = contact.fixtureA.getBody().target
+//                var entityB = contact.fixtureB.getBody().target
+//                if(entityB.entityType === "platform" && entityA.entityType === "mario" &&
+//                        entityA.y + entityA.height > entityB.y) {
+//                    //by setting enabled to false, they can be filtered out completely
+//                    //-> disable cloud platform collisions when the player is below the platform
+//                    contact.enabled = false
+//                }
+//            }
         }
         Level1{
             id:level
         }
         Mario {
             id: mario
-            x:128
-            y:100
+            x:300
+            y:400
         }
+
 
 
     }
