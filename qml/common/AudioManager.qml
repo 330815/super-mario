@@ -12,7 +12,7 @@ Item {
     BackgroundMusic {
         id: bgMusic
 
-        autoPlay: false
+        autoPlay: true
 
         source: "../../assets/Themes/Overworld.mp3"
 
@@ -20,7 +20,7 @@ Item {
     //跳跃音效
     SoundEffect {
         id: marioJump
-        source: "../../assets/Sounds/JumpSmall.wav"
+        source: "../../assets/Sounds/Jump Small.wav"
     }
 
     function handleMusic() {

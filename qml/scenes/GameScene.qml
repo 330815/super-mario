@@ -35,7 +35,7 @@ SceneBase {
         //主背景
         BackgroundImage{
             fillMode: Image.TileHorizontally    //水平平铺
-            verticalAlignment: Image.AlignLeft
+            //verticalAlignment: Image.AlignLeft
             source: "../../assets/img/gk1.jpg"
             z:0     //最底层
             width: parent.width

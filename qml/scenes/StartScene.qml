@@ -12,19 +12,6 @@ SceneBase {
     gridSize: 32
     signal gametest
 
-    Rectangle {
-        //Text: "Felgo"
-        color: "red"
-        z:1000
-        anchors.centerIn: parent
-        Button{
-            onClicked:{
-                gametest()
-            }
-        }
-
-    }
-
     EntityManager {
         id: entityManager
     }
@@ -47,7 +34,6 @@ SceneBase {
         PhysicsWorld {
             id: physicsWorld
             gravity: Qt.point(0, 30)
-            z: 1000
         }
         LevelStart{
             id:level

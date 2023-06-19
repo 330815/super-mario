@@ -7,12 +7,6 @@ import "scenes"
 GameWindow {
     id: gameWindow
 
-    // You get free licenseKeys from https://felgo.com/licenseKey
-    // With a licenseKey you can:
-    //  * Publish your games & apps for the app stores
-    //  * Remove the Felgo Splash Screen or set a custom one (available with the Pro Licenses)
-    //  * Add plugins to monetize, analyze & improve your apps (available with the Pro Licenses)
-    //licenseKey: "<generate one from https://felgo.com/licenseKey>"
 
     activeScene: startScene
 
@@ -23,6 +17,7 @@ GameWindow {
     screenWidth: 960
     screenHeight: 640
 
+
     onActiveSceneChanged: {
       audioManager.handleMusic()
     }
@@ -30,7 +25,17 @@ GameWindow {
     AudioManager {
       id: audioManager
     }
+    //font loader
+    FontLoader {
+        id: themeFont
+        source: "../assets/fonts/themefont.ttf"  // 主题字体
+    }
 
+    FontLoader {
+        id: introductionFont
+        source: "../assets/fonts/introductionfont.ttf"  // 简介板中的字体
+    }
+    //Secene
     StartScene{
         id:startScene
         anchors.left: parent.left
