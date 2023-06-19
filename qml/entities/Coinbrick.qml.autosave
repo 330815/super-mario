@@ -79,15 +79,12 @@ import Felgo 3.0
 
       fixture.onBeginContact: {
         var otherEntity = other.getBody().target
-        if(otherEntity.entityType === "mushRoom") {
-
-
-        }
+       
       }
 
       fixture.onEndContact: {
         var otherEntity = other.getBody().target
-        if(otherEntity.entityType === "mario"&& mario.y>coinBrick.y+25 && mario.x>coinBrick.x-31) {
+        if(otherEntity.entityType === "mario"&& mario.y>coinBrick.y+25 && mario.x>coinBrick.x-31) {   //控制马里奥顶砖的有效范围
           console.debug("contact platform end")
             if(coin.y==0)
             coin.appear()

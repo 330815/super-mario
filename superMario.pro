@@ -61,6 +61,7 @@ macx {
 
 DISTFILES += \
     assets/Sounds/lose.wav \
+    qml/entities/Mushroombrick2.qml \
     qml/levels/LevelStart.qml \
     qml/scenes/DeathScene.qml \
     qml/scenes/GameScene.qml \

@@ -21,6 +21,7 @@ TiledEntityBase{
             }
         }
     }
+
     BoxCollider {
         anchors.fill: parent
         bodyType: Body.Static
@@ -35,3 +36,4 @@ TiledEntityBase{
         }
     }
 }
+

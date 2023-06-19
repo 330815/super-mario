@@ -26,6 +26,7 @@ TiledEntityBase {
           // increase the number of active contacts the player has
           mario.contacts++
         }
+
       }
 
       fixture.onEndContact: {

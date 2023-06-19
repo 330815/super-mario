@@ -86,6 +86,7 @@ EntityBase {
             if(linearVelocity.x < -140) linearVelocity.x = -140
 
         }
+
     }
     //马里奥不允许出左边界
     onXChanged: {

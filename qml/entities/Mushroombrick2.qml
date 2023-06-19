@@ -78,16 +78,15 @@ TiledEntityBase {
         if(otherEntity.entityType === "mario" )
             mario.contacts++
 
-      } 
+      }
 
       fixture.onEndContact: {
         var otherEntity = other.getBody().target
         if(otherEntity.entityType === "mario"&& mario.y>mushroomBrick.y+25 && mario.x>mushroomBrick.x-31 ) {
-            console.log(mario.x)
-            console.log(mushroomBrick.x)
+
           console.debug("contact platform end")
            brickrise.start()
-           textmushroom.appearl()
+           mushroom2.appearl()
           // if the player leaves a platform, we decrease its number of active contacts
            mario.contacts--
         }
