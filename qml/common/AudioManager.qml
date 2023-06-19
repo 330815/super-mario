@@ -10,27 +10,44 @@ Item {
 
     //背景音乐
     BackgroundMusic {
-      id: bgMusic
+        id: bgMusic
 
-      autoPlay: true
+        autoPlay: false
 
-      source: "../../assets/Themes/Overworld.mp3"
+        source: "../../assets/Themes/Overworld.mp3"
+
+    }
+    //跳跃音效
+    SoundEffect {
+        id: marioJump
+        source: "../../assets/Sounds/JumpSmall.wav"
     }
 
     function handleMusic() {
-        audioManager.startMusic(bgMusic)
+        console.log(222222)
+        if(activeScene === gameScene) {
+            startMusic(bgMusic)
+            console.log(bgMusic.source)
+        }
     }
 
     function startMusic(music) {
-      // if music is already playing, we don't have to do anything
-      if(music.playing)
-        return
+        // if music is already playing, we don't have to do anything
 
-      // otherwise stop all music tracks
-      bgMusic.stop()
+        if(music.playing)
+            return
 
-      // play the music
-      music.play()
+        // otherwise stop all music tracks
+        bgMusic.stop()
+
+        // play the music
+        music.play()
+        console.log(1111111111111)
     }
 
+    function playSound(sound) {
+        if(sound === "marioJump"){
+            marioJump.play()
+        }
+    }
 }
