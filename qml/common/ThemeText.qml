@@ -8,4 +8,5 @@ Text {
     font.pointSize: 10  // 设置字体大小
     color: "#ffffff"
     horizontalAlignment: Text.AlignHCenter // 将文本水平居中
+    z:2
 }

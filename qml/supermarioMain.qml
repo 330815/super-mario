@@ -39,7 +39,7 @@ GameWindow {
     StartScene{
         id:startScene
         anchors.left: parent.left
-        onGametest: {
+        onGameStart: {
           // switch to gameScene
           gameWindow.state = "game"
         }

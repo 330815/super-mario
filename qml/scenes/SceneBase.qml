@@ -25,9 +25,9 @@ Scene {
     //the mario's score
     property int scores : 0
 
-    property int corns : 0
+    property int coins : 0
 
-    property string worlds: "1-1"
+    property string worlds: "0-0"
 
     property int times:0
     Rectangle {
@@ -51,21 +51,19 @@ Scene {
                         scores += 100
                     }
                 }
-
+                //六位数字
                 text: qsTr("MARIO\n\n"+String(scores).padStart(6, "0"))
             }
 
             ThemeText {
-                id: corn
+                id: coin
                 AnimatedImage{
-                    y:23
-                    source:"../../assets/img/bullet.gif"
+                    x:5
+                    y:25
+                    source:"../../assets/img/coins.gif"
                     playing:true
                 }
-
-                text: qsTr("CORNS\n\nX"+corns)
-
-
+                text: qsTr("COINS\n\nX"+coins)
             }
             ThemeText {
                 id: world
@@ -78,13 +76,6 @@ Scene {
 
             }
         }
-
-        //        Button{
-        //            onClicked:{
-        //                gametest()
-        //            }
-        //        }
-
 
     }
 }
