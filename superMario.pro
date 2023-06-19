@@ -61,15 +61,16 @@ macx {
 
 DISTFILES += \
     assets/Sounds/lose.wav \
+    qml/levels/LevelStart.qml \
     qml/scenes/DeathScene.qml \
     qml/scenes/GameScene.qml \
+    qml/scenes/SceneBase.qml \
     qml/scenes/StartScene.qml \
     qml/Ground.qml \
     qml/LevelBase.qml \
     qml/Mario.qml \
     qml/ResetSensor.qml \
     qml/Tile.qml \
-    qml/TiledEntityBase.qml \
     qml/common/AudioManager.qml \
     qml/entities/Coinbrick.qml \
     qml/entities/Mushroom.qml \

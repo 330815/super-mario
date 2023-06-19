@@ -14,7 +14,7 @@ GameWindow {
     //  * Add plugins to monetize, analyze & improve your apps (available with the Pro Licenses)
     //licenseKey: "<generate one from https://felgo.com/licenseKey>"
 
-    activeScene: deathScene
+    activeScene: startScene
 
     // the size of the Window can be changed at runtime by pressing Ctrl (or Cmd on Mac) + the number keys 1-8
     // the content of the logical scene size (480x320 for landscape mode by default) gets scaled to the window size based on the scaleMode
@@ -22,6 +22,23 @@ GameWindow {
     // this resolution is for iPhone 4 & iPhone 4S
     screenWidth: 960
     screenHeight: 640
+
+    onActiveSceneChanged: {
+      audioManager.handleMusic()
+    }
+
+    AudioManager {
+      id: audioManager
+    }
+
+    StartScene{
+        id:startScene
+        anchors.left: parent.left
+        onGametest: {
+          // switch to gameScene
+          gameWindow.state = "game"
+        }
+    }
 
     GameScene {
         id: gameScene
@@ -32,17 +49,19 @@ GameWindow {
     DeathScene {
         id: deathScene
         anchors.left: parent.left
-        onGametest: {
-          // switch to gameScene
-          gameWindow.state = "game"
-        }
+
     }
 
      //states
-    state: "death"
+    state: "start"
 
     // this state machine handles the transition between scenes
     states: [
+        State {
+            name: "start"
+            PropertyChanges {target: startScene; opacity: 1}
+            PropertyChanges {target: gameWindow; activeScene: startScene}
+        },
         State {
             name: "game"
             PropertyChanges {target: gameScene; opacity: 1}

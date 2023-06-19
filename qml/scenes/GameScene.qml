@@ -1,22 +1,15 @@
 import QtQuick 2.0
 import Felgo 3.0
 import "../entities"
-
+import "../"
 import "../levels"
 import "../common"
 
-Scene {
+SceneBase {
     id:gameScene
-    opacity:0
-    width: 480
-    height: 480
     gridSize: 32
     //马里奥固定位置X坐标
     property int offsetBeforeScrollingStarts: 240
-
-    AudioManager {
-        id: audioManager
-    }
 
     EntityManager {
         id: entityManager
@@ -35,27 +28,33 @@ Scene {
         width: level.width
         anchors.bottom: gameScene.gameWindowAnchorItem.bottom
         x: mario.x > offsetBeforeScrollingStarts ? offsetBeforeScrollingStarts-mario.x : 0
+        Level1{
+            id:level
+            z:100
+        }
         //主背景
         BackgroundImage{
+            fillMode: Image.TileHorizontally    //水平平铺
+            verticalAlignment: Image.AlignLeft
             source: "../../assets/img/gk1.jpg"
             z:0     //最底层
-            width: 12000
-            fillMode: Image.TileHorizontally    //水平平铺
-            anchors.left: gameScene.gameWindowAnchorItem.left   //左对齐
+            width: parent.width
         }
         PhysicsWorld {
             id: physicsWorld
             gravity: Qt.point(0, 30)
             z: 1000
         }
-        Level1{
-            id:level
-            z:100
-        }
+
 
         Mario {
             id: mario
             x:128
+        }
+
+
+        ResetSensor{
+
         }
     }
 
@@ -63,6 +62,7 @@ Scene {
     Keys.forwardTo: controller
     //控制多轴运动
     TwoAxisController {
+
         id: controller
         //处理按键变化时，图片的变化
         onInputActionPressed: {
@@ -113,4 +113,5 @@ Scene {
             }
         }
     }
+
 }
