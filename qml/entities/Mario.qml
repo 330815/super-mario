@@ -6,6 +6,8 @@ EntityBase {
     height: 32
     width: 32
     entityType: "mario"
+    property int marioLives: 3
+
 
     //修改马里奥的运动状态资源
     function changeState(source){
@@ -24,6 +26,40 @@ EntityBase {
         default:
             break;
         }
+    }
+
+    Timer{
+        id:keep
+        interval: 10 // 适当的时间间隔
+        running: false
+        repeat: true
+
+
+        onTriggered: {
+
+            marioImage.source = "../../assets/img/img/diePerson.png"
+
+        }
+    }
+
+    function closeKeep(){
+        keep.running = false
+    }
+
+
+
+    function hitKill(){
+
+        keep.running=true
+        console.log(mario.z)
+                    console.log(level.z)
+
+
+        collider.active = false
+        marioImage.source = "../../assets/img/img/diePerson.png"
+        die.running = true
+
+
     }
 
     //实现马里奥跳跃
@@ -60,12 +96,54 @@ EntityBase {
             marioImage.playing=true
         }
     }
+
+    onYChanged: {
+        if(y>800){
+
+            if(marioLives > 0){
+                console.log("Mario fell dead")
+                marioLives--
+                level.resetScene()
+                mario.y=0
+                mario.x=128
+            }
+            else{
+
+                console.log("Mario is really dead this time")
+            }
+
+
+        }
+
+    }
+
+    SequentialAnimation{
+        running: false
+        id:die
+        NumberAnimation{
+            target: mario
+            property: "y"
+            from:mario.y
+            to:mario.y-100
+            duration: 700
+        }
+        NumberAnimation{
+            target: mario
+            property: "y"
+            from:mario.y-100
+            to:500
+            duration: 1000
+
+        }
+    }
+
     //马里奥外观
     AnimatedImage {
         id: marioImage
         anchors.centerIn: parent
         source: "../../assets/img/img/basePerson.png"
         playing: true
+
     }
     //碰撞组件
     BoxCollider {

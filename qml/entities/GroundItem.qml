@@ -29,7 +29,7 @@ TiledEntityBase{
         fixture.onBeginContact: {
             var otherEntity = other.getBody().target
             if(otherEntity.entityType === "mario") mario.contacts++
-        }
+         }
         fixture.onEndContact: {
             var otherEntity = other.getBody().target
             if(otherEntity.entityType === "mario") mario.contacts--

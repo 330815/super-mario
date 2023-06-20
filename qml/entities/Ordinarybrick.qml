@@ -17,6 +17,7 @@ TiledEntityBase {
       id: collider
       anchors.fill: parent
       bodyType: Body.Static
+      height: 30
 
       fixture.onBeginContact: {
         var otherEntity = other.getBody().target

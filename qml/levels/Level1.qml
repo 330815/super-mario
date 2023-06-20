@@ -15,6 +15,7 @@ Levels.LevelBase {
     // you could draw your level on a graph paper and then add the tiles here only by defining their row, column and size
     //---------------地面-------------
     GroundItem{
+
         row:0
         column: 0
         size: 30
@@ -54,19 +55,23 @@ Levels.LevelBase {
 
 
     Coinbrick{
+        id:coinbrick1
         row: 8
         column: 5
         size: 4
     }
 
     Mushroom{
-        id:textmushroom
+        id:mushroom0
+        direction: 1
         row:15
         column: 6
         size: 4
     }
 
     Mushroombrick{
+        thismush: mushroom0
+        id:mushbrick1
         row:15
         column: 5
         size: 4
@@ -79,12 +84,14 @@ Levels.LevelBase {
     }
 
     Coinbrick{
+        id:coinbrick2
         row: 17
         column: 5
         size: 4
     }
 
     Coinbrick{
+        id:coinbrick3
         row: 16
         column: 8
         size:4
@@ -98,12 +105,15 @@ Levels.LevelBase {
 
     Mushroom{
         id:mushroom1
+        direction: 0
         row:27
         column: 6
         size:4
     }
 
-    Mushroombrick2{
+    Mushroombrick{
+        id:mushbrick2
+        thismush: mushroom1
         row:27
         column: 5
         size: 4
@@ -114,6 +124,23 @@ Levels.LevelBase {
         row:28
         column: 5
         size: 4
+    }
+
+    function resetScene(){
+        mushroom0.resetMushroom()
+        mushroom0.x = 490
+        mushroom0.y = 270
+        mushroom1.resetMushroom()
+        mushroom1.x = 867
+        mushroom1.y = 270
+        mushbrick1.mushroombrickReset()
+        mushbrick2.mushroombrickReset()
+        coinbrick1.restoreCoinbrick()
+        coinbrick2.restoreCoinbrick()
+        coinbrick3.restoreCoinbrick()
+
+
+
     }
 
 

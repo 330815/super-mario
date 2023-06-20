@@ -31,6 +31,8 @@ GameWindow {
       id: audioManager
     }
 
+
+
     StartScene{
         id:startScene
         anchors.left: parent.left
@@ -40,9 +42,17 @@ GameWindow {
         }
     }
 
+
     GameScene {
         id: gameScene
         anchors.left: parent.left
+
+    }
+
+
+
+    SceneBase{
+        id:now
 
     }
 
@@ -72,6 +82,7 @@ GameWindow {
             PropertyChanges {target: deathScene; opacity: 1}
             PropertyChanges {target: gameWindow; activeScene: deathScene}
         }
+
     ]
 
 

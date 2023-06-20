@@ -1,13 +1,14 @@
 import QtQuick 2.0
 import Felgo 3.0
 import QtQml 2.0
-
+import "../levels"
 
 TiledEntityBase {
     entityType: "mushroombrick"
     id:mushroomBrick
     height: 25
     width: 32
+    property Mushroom thismush    //用于传入场景中不同的蘑菇
 
 
     AnimatedImage {
@@ -83,18 +84,23 @@ TiledEntityBase {
       fixture.onEndContact: {
         var otherEntity = other.getBody().target
         if(otherEntity.entityType === "mario"&& mario.y>mushroomBrick.y+25 && mario.x>mushroomBrick.x-31 ) {
-            console.log(mario.x)
-            console.log(mushroomBrick.x)
-          console.debug("contact platform end")
-           brickrise.start()
-           textmushroom.appearl()
+          mushroombrick.source = "../../assets/img/img/map-nothing.png"
+          brickrise.start()
+          if(thismush.isMoving==false)
+          thismush.appearl()
           // if the player leaves a platform, we decrease its number of active contacts
-           mario.contacts--
+          mario.contacts--
+
         }
 
       }
 
 
+    }
+
+    function mushroombrickReset(){
+        mushroombrick.playing = true
+        mushroombrick.source = "../../assets/img/map-ask.gif"
     }
 
 }

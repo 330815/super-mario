@@ -12,12 +12,53 @@ TiledEntityBase {
 
     property bool isMoving: false  //默认状态下不移动
     property real moveSpeed: 1 // 设置水平移动的速度
+    property int direction:0     //用于指定蘑菇的移动方向
+   // property url picture: "../../assets/img/mushroom.gif"
 
 
     AnimatedImage {
         id: mushroom
         anchors.centerIn: parent
         source: "../../assets/img/mushroom.gif"
+
+
+        SequentialAnimation{
+            id:rise
+            NumberAnimation {
+
+               target: mushRoom1
+               property: "y"
+               from: mushRoom1.y+20
+               to: mushRoom1.y-15 // 向上移动的距离
+               duration: 350 // 动画时长
+               easing.type: Easing.OutQuint // 缓动效果
+
+
+         }
+    }
+       //定义mushroom被撞后下落的动画
+        SequentialAnimation{
+            id:drop
+            NumberAnimation{
+                target: mushRoom1
+                property: "y"
+                from:mushRoom1.y
+                to:mushRoom1.y-50
+                duration: 200
+
+
+            }
+            NumberAnimation{
+                target: mushRoom1
+                property: "y"
+                from:mushRoom1.y-50
+                to:mushRoom1.y+100
+                duration: 800
+
+
+            }
+        }
+
 
     }
 
@@ -35,33 +76,44 @@ TiledEntityBase {
 
                 }
 
-    // 定义mushroom顶起的动画
-    SequentialAnimation{
-        id:rise
-    NumberAnimation {
-
-        target: mushRoom1
-        property: "y"
-        from: mushRoom1.y+20
-        to: mushRoom1.y-15 // 向上移动的距离
-        duration: 350 // 动画时长
-        easing.type: Easing.OutQuint // 缓动效果
-        running: true // 默认不运行动画
-     }
 
 
+    Timer{
+                    id: dietimer
+                    interval: 1000 // 时间间隔为 1 秒
+                    repeat: false // 只执行一次
+                    running: false // 启动定时器
 
+                    onTriggered: {
+                      mushRoom1.visible = false
+                    }
+
+
+                }
 
 
 
-   }
+    function resetMushroom(){
+        mushroom.playing = true
+        mushroom.source = "../../assets/img/mushroom.gif"
+        mushRoom1.visible =false
+        collider.active = true
+        mushRoom1.isMoving = false
+
+
+        dietimer.running = false
+    }
+
+
+
+
     function moveMushroom() {
+        if(direction == 0)
             mushRoom1.x -= mushRoom1.moveSpeed
+        if(direction == 1)
+            mushRoom1.x += mushRoom1.moveSpeed
         }
 
-    /*function fallMushroom() {
-            mushRoom1.y += mushRoom1.fallSpeed
-        }*/
 
 
 
@@ -96,10 +148,36 @@ TiledEntityBase {
            }
        }
 
+   Timer {
+           id: resurgenceTimer
+           interval: 3000 // 适当的时间间隔
+           running: false
+           repeat: false
+
+
+           onTriggered: {
+
+               console.log("Mario was killed by a mushroom")
+               if(mario.marioLives>0){
+               mario.marioLives--
+               mario.collider.active = true
+               mario.closeKeep()
+               mario.changeState("../../assets/img/img/basePerson.png")
+               mario.y=0
+               mario.x=128
+
+               level.resetScene()}
+               else{
+                   console.log("Mario is really dead")
+               }
+
+           }
+       }
+
 
 
     BoxCollider {
-        //id: collider
+        id: collider
 
         anchors.fill: parent
 
@@ -115,8 +193,31 @@ TiledEntityBase {
         gravityScale: 5
 
 
+        fixture.onBeginContact: {
+          var otherEntity = other.getBody().target
+          if(otherEntity.entityType === "mario" && mario.y < mushRoom1.y-30 ){
+              console.log("Mario stepped on the mushrooms")
+              mushroom.source = "../../assets/img/img/mushroom-die.gif"
+              mushRoom1.isMoving = false
+              dietimer.running = true
+
+          }
+
+          if(otherEntity.entityType === "mario" && mario.y > mushRoom1.y-30){
+              //console.log("Mario killed the mushroom")
+              //mushroom.source = "../../assets/img/mushroomR.gif"
+              //mushRoom1.isMoving = false
+              //drop.start()
+              //collider.active=false
+
+              mario.hitKill()
+              resurgenceTimer.running = true
+
+
+          }
 
 
     }
 
+  }
 }

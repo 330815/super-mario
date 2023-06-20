@@ -11,6 +11,7 @@ SceneBase {
     //马里奥固定位置X坐标
     property int offsetBeforeScrollingStarts: 240
 
+
     EntityManager {
         id: entityManager
     }
@@ -113,5 +114,9 @@ SceneBase {
             }
         }
     }
+
+
+
+
 
 }

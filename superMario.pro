@@ -61,10 +61,13 @@ macx {
 
 DISTFILES += \
     assets/Sounds/lose.wav \
-    qml/entities/Mushroombrick2.qml \
+    qml/entities/Animationgather.qml \
+    qml/entities/Coin.qml \
+    qml/entities/Coins.qml \
     qml/levels/LevelStart.qml \
     qml/scenes/DeathScene.qml \
     qml/scenes/GameScene.qml \
+    qml/scenes/ResetScene.qml \
     qml/scenes/SceneBase.qml \
     qml/scenes/StartScene.qml \
     qml/Ground.qml \
