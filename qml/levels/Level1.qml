@@ -52,7 +52,6 @@ Levels.LevelBase {
 
 
 
-
     Coinbrick{
         row: 8
         column: 5
@@ -101,12 +100,6 @@ Levels.LevelBase {
         row:27
         column: 6
         size:4
-    }
-
-    Mushroombrick2{
-        row:27
-        column: 5
-        size: 4
     }
 
 

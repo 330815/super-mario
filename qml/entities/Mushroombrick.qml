@@ -3,11 +3,8 @@ import Felgo 3.0
 import QtQml 2.0
 
 
-TiledEntityBase {
-    entityType: "mushroombrick"
+BrickBase {
     id:mushroomBrick
-    height: 25
-    width: 32
 
 
     AnimatedImage {
@@ -17,83 +14,41 @@ TiledEntityBase {
 
     }
 
-
-    /*AnimatedImage{
-        id:mushroom
-        width: 32
-        height: 32
-        source: "../../assets/img/mushroom.gif"
-        visible: false
-        */
-    /*Mushroom{
-        id:mushRoom
-        anchors.centerIn: parent
-        visible: false
-        function appearl()
-        {
-            mushRoom.visible=true
-
-            mushRoom.anchors.centerIn = undefined
-            //console.log("lalala")
-           mushRoom.startmove()
-        }
-
-
-    }*/
-
     SequentialAnimation{
-       id:brickrise
-       NumberAnimation{
-           target: mushroomBrick
-           property: "y"
-           from:mushroomBrick.y
-           to:mushroomBrick.y - 10
-           duration: 500
-           easing.type: Easing.OutQuint
-           running: false
-       }
-       NumberAnimation{
-           target: mushroomBrick
-           property: "y"
-           from:mushroomBrick.y - 10
-           to:mushroomBrick.y
-           duration: 500
-           easing.type: Easing.OutQuint
-           running: false
-       }
+        id:brickrise
+        NumberAnimation{
+            target: mushroomBrick
+            property: "y"
+            from:mushroomBrick.y
+            to:mushroomBrick.y - 10
+            duration: 500
+            easing.type: Easing.OutQuint
+            running: false
+        }
+        NumberAnimation{
+            target: mushroomBrick
+            property: "y"
+            from:mushroomBrick.y - 10
+            to:mushroomBrick.y
+            duration: 500
+            easing.type: Easing.OutQuint
+            running: false
+        }
     }
 
 
-
     BoxCollider {
-      id: collider
-      anchors.fill: parent
-      bodyType: Body.Static
+        anchors.fill: parent
+        bodyType: Body.Static
 
+        fixture.onEndContact: {
+            var otherEntity = other.getBody().target
+            if(otherEntity.entityType === "mario"&&mario.y>mushroomBrick.y+25 && mario.x>mushroomBrick.x-31) {
+                brickrise.start()
+                textmushroom.appearl()
+            }
 
-
-
-      fixture.onBeginContact: {
-        var otherEntity = other.getBody().target
-        if(otherEntity.entityType === "mario" )
-            mario.contacts++
-
-      } 
-
-      fixture.onEndContact: {
-        var otherEntity = other.getBody().target
-        if(otherEntity.entityType === "mario"&& mario.y>mushroomBrick.y+25 && mario.x>mushroomBrick.x-31 ) {
-            console.log(mario.x)
-            console.log(mushroomBrick.x)
-          console.debug("contact platform end")
-           brickrise.start()
-           textmushroom.appearl()
-          // if the player leaves a platform, we decrease its number of active contacts
-           mario.contacts--
         }
-
-      }
-
 
     }
 

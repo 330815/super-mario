@@ -43,7 +43,7 @@ Scene {
             anchors.leftMargin: 10
             spacing: 145
             ThemeText {
-                id: score
+                id: scoreTxt
 
                 MouseArea {
                     anchors.fill: parent
@@ -56,7 +56,7 @@ Scene {
             }
 
             ThemeText {
-                id: coin
+                id: coinTxt
                 AnimatedImage{
                     x:5
                     y:25
@@ -66,12 +66,12 @@ Scene {
                 text: qsTr("COINS\n\nX"+coins)
             }
             ThemeText {
-                id: world
+                id: worldTxt
                 text: qsTr("WORLD\n\n"+worlds)
 
             }
             ThemeText {
-                id: time
+                id: timeTxt
                 text: qsTr("TIME\n\n"+times)
 
             }

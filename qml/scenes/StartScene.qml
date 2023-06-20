@@ -27,7 +27,7 @@ SceneBase {
         source: "../../assets/img/startBoard.png"
         x:180
         y:80
-        z:12
+        z:5
         BoxCollider {
             anchors.fill: parent
             bodyType: Body.Static
@@ -116,6 +116,7 @@ SceneBase {
 
         Mario {
             id: mario
+            z:10
             x:128
             //不允许出界
             onXChanged: {

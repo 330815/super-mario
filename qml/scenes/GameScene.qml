@@ -11,7 +11,7 @@ SceneBase {
     //马里奥固定位置X坐标
     property int offsetBeforeScrollingStarts: 240
     //游戏时间倒计时
-    times:400
+
 
     EntityManager {
         id: entityManager
@@ -61,7 +61,13 @@ SceneBase {
 
         }
     }
+//    function resetLevel() {
 
+
+//      // reset time and timer
+//      times = 400
+//      timer.restart()
+//    }
     //游戏时间倒计时
     Timer {
         id: timer
@@ -112,6 +118,7 @@ SceneBase {
             }
             if(actionName == "up") {    //跳跃
                 mario.jump()
+
             }
         }
         onInputActionReleased: {

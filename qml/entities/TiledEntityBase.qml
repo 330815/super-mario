@@ -1,7 +1,8 @@
 import QtQuick 2.0
 import Felgo 3.0
-
+    //所有方块的父类
 EntityBase {
+
     id: tiledEntity
     property int column: 0
     property int row: 0
