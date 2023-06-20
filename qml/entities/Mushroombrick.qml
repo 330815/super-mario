@@ -47,30 +47,17 @@ BrickBase {
         bodyType: Body.Static
 
 
-
-
-      fixture.onBeginContact: {
-        var otherEntity = other.getBody().target
-        if(otherEntity.entityType === "mario" )
-            mario.contacts++
-
-      } 
-
-      fixture.onEndContact: {
-        var otherEntity = other.getBody().target
-        if(otherEntity.entityType === "mario"&& mario.y>mushroomBrick.y+25 && mario.x>mushroomBrick.x-31 ) {
-          mushroombrick.source = "../../assets/img/img/map-nothing.png"
-          brickrise.start()
-          if(thismush.isMoving==false)
-          thismush.appearl()
-          // if the player leaves a platform, we decrease its number of active contacts
-          mario.contacts--
-
+        fixture.onEndContact: {
+            var otherEntity = other.getBody().target
+            if(otherEntity.entityType === "mario"&& mario.y>mushroomBrick.y+25 && mario.x>mushroomBrick.x-31 ) {
+                mushroombrick.source = "../../assets/img/img/map-nothing.png"
+                brickrise.start()
+                if(thismush.isMoving==false)
+                    thismush.appearl()
+            }
 
         }
-
     }
-}
     function mushroombrickReset(){
         mushroombrick.playing = true
         mushroombrick.source = "../../assets/img/map-ask.gif"

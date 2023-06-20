@@ -14,28 +14,28 @@ BrickBase{
     }
 
 
-        //Coinbrick's animation
-        SequentialAnimation{
-            id:brickrise
-            NumberAnimation{
-                target: coinBrick
-                property: "y"
-                from:coinBrick.y
-                to:coinBrick.y - 10
-                duration: 500
-                easing.type: Easing.OutQuint
-                running: false
-            }
-            NumberAnimation{
-                target: coinBrick
-                property: "y"
-                from:coinBrick.y - 10
-                to:coinBrick.y
-                duration: 500
-                easing.type: Easing.OutQuint
-                running: false
-            }
+    //Coinbrick's animation
+    SequentialAnimation{
+        id:brickrise
+        NumberAnimation{
+            target: coinBrick
+            property: "y"
+            from:coinBrick.y
+            to:coinBrick.y - 10
+            duration: 500
+            easing.type: Easing.OutQuint
+            running: false
         }
+        NumberAnimation{
+            target: coinBrick
+            property: "y"
+            from:coinBrick.y - 10
+            to:coinBrick.y
+            duration: 500
+            easing.type: Easing.OutQuint
+            running: false
+        }
+    }
 
 
 
@@ -43,45 +43,33 @@ BrickBase{
         id:coins
         quatity: 5
 
-
-
-            }
-
-
-
-
+    }
 
 
     BoxCollider {
         anchors.fill: parent
         bodyType: Body.Static
 
+        fixture.onEndContact: {
+            var otherEntity = other.getBody().target
+            if(otherEntity.entityType === "mario"&& mario.y>coinBrick.y+25 && mario.x>coinBrick.x-31) {
 
-
-
-      fixture.onEndContact: {
-        var otherEntity = other.getBody().target
-        if(otherEntity.entityType === "mario"&& mario.y>coinBrick.y+25 && mario.x>coinBrick.x-31) {
-
-            brickrise.start()
-            if(coins.quatity == 1){
-                coinbrick.source = "../../assets/img/img/map-nothing.png"
-               }
-            if(coins.quatity > 0){
-                console.log(coins.quatity)
-
-                coins.coinsAppear()
-                coins.quatity--
-                if(coins.circulate>1)
-                  coins.circulate--
-                if(coins.circulate==0)
-                  coins.circulate=3
+                brickrise.start()
+                if(coins.quatity == 1){
+                    coinbrickImage.source = "../../assets/img/img/map-nothing.png"
                 }
+                if(coins.quatity > 0){
+                    console.log(coins.quatity)
 
-          // if the player leaves a platform, we decrease its number of active contacts
-          //mario.contacts--
+                    coins.coinsAppear()
+                    coins.quatity--
+                    if(coins.circulate>1)
+                        coins.circulate--
+                    if(coins.circulate==0)
+                        coins.circulate=3
+                }
+            }
         }
-      }
 
     }
 

@@ -6,7 +6,6 @@ EntityBase {
     height: 32
     width: 32
     entityType: "mario"
-    property int marioLives: 3
 
     //添加别名
     property alias collider: collider
