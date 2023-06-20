@@ -1,11 +1,9 @@
 import QtQuick 2.0
 import Felgo 3.0
 
-TiledEntityBase {
-    entityType: "platform"
+BrickBase {
+
     id:ordinaryBrick
-    height: 25
-    width: 32
 
     AnimatedImage {
         id: ordinarybrick
@@ -13,6 +11,7 @@ TiledEntityBase {
         source: "../../assets/img/img/map-stone.png"
 
     }
+
     BoxCollider {
       id: collider
       anchors.fill: parent
@@ -40,5 +39,6 @@ TiledEntityBase {
         }
       }
     }
+
 
 }

@@ -61,26 +61,21 @@ macx {
 
 DISTFILES += \
     assets/Sounds/lose.wav \
-    qml/entities/Animationgather.qml \
-    qml/entities/Coin.qml \
-    qml/entities/Coins.qml \
-    qml/levels/LevelStart.qml \
+    qml/entities/Coin.qml\
+    qml/entities/Coins.qml\
+    qml/ResetSensor.qml \
     qml/scenes/DeathScene.qml \
     qml/scenes/GameScene.qml \
-    qml/scenes/ResetScene.qml \
     qml/scenes/SceneBase.qml \
     qml/scenes/StartScene.qml \
-    qml/Ground.qml \
-    qml/LevelBase.qml \
-    qml/Mario.qml \
-    qml/ResetSensor.qml \
-    qml/Tile.qml \
     qml/common/AudioManager.qml \
+    qml/common/ThemeText.qml \
+    qml/entities/BrickBase.qml \
     qml/entities/Coinbrick.qml \
     qml/entities/Mushroom.qml \
     qml/entities/Mushroombrick.qml \
     qml/entities/Ordinarybrick.qml \
-    qml/level/Level1.qml \
-    qml/level/LevelBase.qml \
+    qml/levels/LevelStart.qml \
+    qml/levels/LevelBase.qml \
     qml/levels/Level1.qml \
     qml/supermarioMain.qml

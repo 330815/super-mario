@@ -10,6 +10,8 @@ SceneBase {
     gridSize: 32
     //马里奥固定位置X坐标
     property int offsetBeforeScrollingStarts: 240
+    //游戏时间倒计时
+
 
 
     EntityManager {
@@ -23,12 +25,14 @@ SceneBase {
 
 
 
+    //实体
     Item{
         id: viewPort
         height: level.height
         width: level.width
         anchors.bottom: gameScene.gameWindowAnchorItem.bottom
-        x: mario.x > offsetBeforeScrollingStarts ? offsetBeforeScrollingStarts-mario.x : 0
+        x: mario.x > offsetBeforeScrollingStarts ? offsetBeforeScrollingStarts-mario.x : 0  //控制马里奥始终在中心
+        //第一关地图
         Level1{
             id:level
             z:100
@@ -36,17 +40,17 @@ SceneBase {
         //主背景
         BackgroundImage{
             fillMode: Image.TileHorizontally    //水平平铺
-            verticalAlignment: Image.AlignLeft
+            //verticalAlignment: Image.AlignLeft
             source: "../../assets/img/gk1.jpg"
             z:0     //最底层
             width: parent.width
         }
+        //实现物理世界
         PhysicsWorld {
             id: physicsWorld
             gravity: Qt.point(0, 30)
             z: 1000
         }
-
 
         Mario {
             id: mario
@@ -58,7 +62,26 @@ SceneBase {
 
         }
     }
+//    function resetLevel() {
 
+
+//      // reset time and timer
+//      times = 400
+//      timer.restart()
+//    }
+    //游戏时间倒计时
+    Timer {
+        id: timer
+        interval: 1000 // 1秒钟
+        running: true
+        repeat: true
+        onTriggered: {
+            times--
+            if(times <= 0) {
+                timer.stop()
+            }
+        }
+    }
 
     Keys.forwardTo: controller
     //控制多轴运动
@@ -96,6 +119,7 @@ SceneBase {
             }
             if(actionName == "up") {    //跳跃
                 mario.jump()
+
             }
         }
         onInputActionReleased: {

@@ -3,12 +3,13 @@ import Felgo 3.0
 import QtQml 2.0
 import "../levels"
 
-TiledEntityBase {
-    entityType: "mushroombrick"
+BrickBase {
     id:mushroomBrick
+
     height: 25
     width: 32
     property Mushroom thismush    //用于传入场景中不同的蘑菇
+
 
 
     AnimatedImage {
@@ -18,58 +19,32 @@ TiledEntityBase {
 
     }
 
-
-    /*AnimatedImage{
-        id:mushroom
-        width: 32
-        height: 32
-        source: "../../assets/img/mushroom.gif"
-        visible: false
-        */
-    /*Mushroom{
-        id:mushRoom
-        anchors.centerIn: parent
-        visible: false
-        function appearl()
-        {
-            mushRoom.visible=true
-
-            mushRoom.anchors.centerIn = undefined
-            //console.log("lalala")
-           mushRoom.startmove()
-        }
-
-
-    }*/
-
     SequentialAnimation{
-       id:brickrise
-       NumberAnimation{
-           target: mushroomBrick
-           property: "y"
-           from:mushroomBrick.y
-           to:mushroomBrick.y - 10
-           duration: 500
-           easing.type: Easing.OutQuint
-           running: false
-       }
-       NumberAnimation{
-           target: mushroomBrick
-           property: "y"
-           from:mushroomBrick.y - 10
-           to:mushroomBrick.y
-           duration: 500
-           easing.type: Easing.OutQuint
-           running: false
-       }
+        id:brickrise
+        NumberAnimation{
+            target: mushroomBrick
+            property: "y"
+            from:mushroomBrick.y
+            to:mushroomBrick.y - 10
+            duration: 500
+            easing.type: Easing.OutQuint
+            running: false
+        }
+        NumberAnimation{
+            target: mushroomBrick
+            property: "y"
+            from:mushroomBrick.y - 10
+            to:mushroomBrick.y
+            duration: 500
+            easing.type: Easing.OutQuint
+            running: false
+        }
     }
 
 
-
     BoxCollider {
-      id: collider
-      anchors.fill: parent
-      bodyType: Body.Static
+        anchors.fill: parent
+        bodyType: Body.Static
 
 
 
@@ -91,13 +66,11 @@ TiledEntityBase {
           // if the player leaves a platform, we decrease its number of active contacts
           mario.contacts--
 
+
         }
 
-      }
-
-
     }
-
+}
     function mushroombrickReset(){
         mushroombrick.playing = true
         mushroombrick.source = "../../assets/img/map-ask.gif"

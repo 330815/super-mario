@@ -1,16 +1,13 @@
 import QtQuick 2.0
 import Felgo 3.0
 
- TiledEntityBase{
-    entityType: "platform"
+BrickBase{
     id:coinBrick
-    height: 25
-    width: 32
 
 
 
     AnimatedImage {
-        id: coinbrick
+        id: coinbrickImage
         anchors.centerIn: parent
         source: "../../assets/img/map-ask.gif"
 
@@ -19,48 +16,48 @@ import Felgo 3.0
 
         //Coinbrick's animation
         SequentialAnimation{
-           id:brickrise
-           NumberAnimation{
-               target: coinBrick
-               property: "y"
-               from:coinBrick.y
-               to:coinBrick.y - 10
-               duration: 500
-               easing.type: Easing.OutQuint
-               running: false
-           }
-           NumberAnimation{
-               target: coinBrick
-               property: "y"
-               from:coinBrick.y - 10
-               to:coinBrick.y
-               duration: 500
-               easing.type: Easing.OutQuint
-               running: false
-           }
+            id:brickrise
+            NumberAnimation{
+                target: coinBrick
+                property: "y"
+                from:coinBrick.y
+                to:coinBrick.y - 10
+                duration: 500
+                easing.type: Easing.OutQuint
+                running: false
+            }
+            NumberAnimation{
+                target: coinBrick
+                property: "y"
+                from:coinBrick.y - 10
+                to:coinBrick.y
+                duration: 500
+                easing.type: Easing.OutQuint
+                running: false
+            }
         }
+
 
 
     Coins{
         id:coins
         quatity: 5
 
-    }
+
+
+            }
+
+
+
 
 
 
     BoxCollider {
-      id: collider
-      anchors.fill: parent
-      bodyType: Body.Static
-
-      fixture.onBeginContact: {
-        var otherEntity = other.getBody().target
-        if(otherEntity.entityType === "mushRoom") {
+        anchors.fill: parent
+        bodyType: Body.Static
 
 
-        }
-      }
+
 
       fixture.onEndContact: {
         var otherEntity = other.getBody().target
@@ -85,6 +82,7 @@ import Felgo 3.0
           //mario.contacts--
         }
       }
+
     }
 
     function restoreCoinbrick(){

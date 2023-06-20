@@ -8,6 +8,18 @@ EntityBase {
     entityType: "mario"
     property int marioLives: 3
 
+    //添加别名
+    property alias collider: collider
+    //speed
+    property alias horizontalVelocity: collider.linearVelocity.x
+    //derection
+    property bool isRight:true  //默认马里奥朝右
+    //left-right press
+    property bool isPress: false //默认没按下
+    // the contacts property is used to determine if the player is in touch with any solid objects (like ground or platform), because in this case the player is walking, which enables the ability to jump. contacts > 0 --> walking state
+    property int contacts: 0
+    // property binding to determine the state of the player like described abovestate = "jumping"
+    state: contacts > 0 ? "walking" : "jumping"
 
     //修改马里奥的运动状态资源
     function changeState(source){
@@ -71,17 +83,6 @@ EntityBase {
         }
 
     }
-    //添加别名
-    property alias collider: collider
-    property alias horizontalVelocity: collider.linearVelocity.x
-    //derection
-    property bool isRight:true  //默认马里奥朝右
-    //left-right press
-    property bool isPress: false //默认没按下
-    // the contacts property is used to determine if the player is in touch with any solid objects (like ground or platform), because in this case the player is walking, which enables the ability to jump. contacts > 0 --> walking state
-    property int contacts: 0
-    // property binding to determine the state of the player like described abovestate = "jumping"
-    state: contacts > 0 ? "walking" : "jumping"
 
     onStateChanged: {
         //处理状态变化时，图片的变化

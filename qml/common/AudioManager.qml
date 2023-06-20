@@ -12,7 +12,7 @@ Item {
     BackgroundMusic {
         id: bgMusic
 
-        autoPlay: false
+        autoPlay: true
 
         source: "../../assets/Themes/Overworld.mp3"
 

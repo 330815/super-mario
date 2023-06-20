@@ -64,17 +64,17 @@ TiledEntityBase {
 
     //为了让蘑菇升起后有一个停顿，设置一个定时器，一秒后再让isMoving为true
     Timer{
-                    id: timer
-                    interval: 1000 // 时间间隔为 1 秒
-                    repeat: false // 只执行一次
-                    running: false // 启动定时器
+        id: timer
+        interval: 1000 // 时间间隔为 1 秒
+        repeat: false // 只执行一次
+        running: false // 启动定时器
 
-                    onTriggered: {
-                      mushRoom1.isMoving=true
-                    }
+        onTriggered: {
+            mushRoom1.isMoving=true
+        }
 
+    }
 
-                }
 
 
 
@@ -117,6 +117,7 @@ TiledEntityBase {
 
 
 
+
     function appearl()
     {
         mushRoom1.visible=true  //蘑菇被顶后才显现出来
@@ -131,22 +132,22 @@ TiledEntityBase {
 
     //定时器反复调用move函数使蘑菇持续移动
 
-   Timer {
-           id: moveTimer
-           interval: 5 // 适当的时间间隔
-           running: true
-           repeat: true
+    Timer {
+        id: moveTimer
+        interval: 5 // 适当的时间间隔
+        running: true
+        repeat: true
 
 
-           onTriggered: {
-               if (mushRoom1.isMoving) {
+        onTriggered: {
+            if (mushRoom1.isMoving) {
 
-                   moveMushroom()
-               }
+                moveMushroom()
+            }
 
 
-           }
-       }
+        }
+    }
 
    Timer {
            id: resurgenceTimer
