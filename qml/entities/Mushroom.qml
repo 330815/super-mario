@@ -3,8 +3,8 @@ import Felgo 3.0
 
 TiledEntityBase {
 
-    id:mushRoom1
-    entityType: "mushRoom1"
+    id:mushRoom
+    entityType: "mushRoom"
     height: 25
     width: 32
     visible: false
@@ -14,6 +14,7 @@ TiledEntityBase {
     property real moveSpeed: 1 // 设置水平移动的速度
     property int direction:0     //用于指定蘑菇的移动方向
     property bool isdead:false  //默认蘑菇存活
+    property int distance : mushRoom.x-mario.x     //蘑菇和马里奥的距离
 
 
     AnimatedImage {
@@ -26,10 +27,10 @@ TiledEntityBase {
             id:rise
             NumberAnimation {
 
-               target: mushRoom1
+               target: mushRoom
                property: "y"
-               from: mushRoom1.y+20
-               to: mushRoom1.y-15 // 向上移动的距离
+               from: mushRoom.y+20
+               to: mushRoom.y-15 // 向上移动的距离
                duration: 350 // 动画时长
                easing.type: Easing.OutQuint // 缓动效果
 
@@ -40,19 +41,19 @@ TiledEntityBase {
         SequentialAnimation{
             id:drop
             NumberAnimation{
-                target: mushRoom1
+                target: mushRoom
                 property: "y"
-                from:mushRoom1.y
-                to:mushRoom1.y-50
+                from:mushRoom.y
+                to:mushRoom.y-50
                 duration: 200
 
 
             }
             NumberAnimation{
-                target: mushRoom1
+                target: mushRoom
                 property: "y"
-                from:mushRoom1.y-50
-                to:mushRoom1.y+100
+                from:mushRoom.y-50
+                to:mushRoom.y+100
                 duration: 800
 
 
@@ -61,6 +62,11 @@ TiledEntityBase {
 
 
     }
+    //蘑菇和马里奥的距离小于五百，蘑菇就开始移动
+    /*onDistanceChanged: {
+        if(distance < 500)
+            mushRoom.isMoving = true
+    }*/
 
     //为了让蘑菇升起后有一个停顿，设置一个定时器，一秒后再让isMoving为true
     Timer{
@@ -70,7 +76,7 @@ TiledEntityBase {
         running: false // 启动定时器
 
         onTriggered: {
-            mushRoom1.isMoving=true
+            mushRoom.isMoving=true
         }
 
     }
@@ -85,33 +91,24 @@ TiledEntityBase {
                     running: false // 启动定时器
 
                     onTriggered: {
-                      mushRoom1.visible = false
+                      mushRoom.visible = false
                     }
 
 
                 }
 
 
-  //蘑菇的重生
-    function resetMushroom(){
-        mushroom.playing = true
-        mushroom.source = "../../assets/img/mushroom.gif"
-        mushRoom1.visible =false
-        collider.active = true
-        mushRoom1.isMoving = false
-        mushRoom1.isdead = false
 
-        dietimer.running = false
-    }
 
 
 
 
     function moveMushroom() {
         if(direction == 0)
-            mushRoom1.x -= mushRoom1.moveSpeed
+            mushRoom.x -= mushRoom.moveSpeed
         if(direction == 1)
-            mushRoom1.x += mushRoom1.moveSpeed
+            mushRoom.x += mushRoom.moveSpeed
+
         }
 
 
@@ -120,9 +117,9 @@ TiledEntityBase {
 
     function appearl()
     {
-        mushRoom1.visible=true  //蘑菇被顶后才显现出来
+        mushRoom.visible=true  //蘑菇被顶后才显现出来
 
-        mushRoom1.anchors.centerIn = undefined  //释放蘑菇
+        mushRoom.anchors.centerIn = undefined  //释放蘑菇
 
         rise.start()   //蘑菇开始升起
         timer.running=true
@@ -140,7 +137,7 @@ TiledEntityBase {
 
 
         onTriggered: {
-            if (mushRoom1.isMoving) {
+            if (mushRoom.isMoving) {
 
                 moveMushroom()
             }
@@ -206,17 +203,17 @@ TiledEntityBase {
 
         fixture.onBeginContact: {
           var otherEntity = other.getBody().target
-          if(otherEntity.entityType === "mario" && mario.y < mushRoom1.y-30 ){         //如果马里奥接触的是蘑菇盖
+          if(otherEntity.entityType === "mario" && mario.y < mushRoom.y-30 ){         //如果马里奥接触的是蘑菇盖
               console.log("Mario stepped on the mushrooms")
-              mushRoom1.isdead = true                     //蘑菇被踩死
+              mushRoom.isdead = true                     //蘑菇被踩死
               mushroom.source = "../../assets/img/img/mushroom-die.gif"       //蘑菇图片设置为死亡的蘑菇
-              mushRoom1.isMoving = false      //蘑菇不动了
+              mushRoom.isMoving = false      //蘑菇不动了
               scores += 100     //踩死蘑菇得100分
               dietimer.running = true       //调用计时器，蘑菇消失
 
           }
 
-          if(otherEntity.entityType === "mario" && mario.y > mushRoom1.y-30 && mushRoom1.isdead == false){     //如果马里奥接触的是蘑菇身子
+          if(otherEntity.entityType === "mario" && mario.y > mushRoom.y-30 && mushRoom.isdead == false){     //如果马里奥接触的是蘑菇身子
               //console.log("Mario killed the mushroom")
               //mushroom.source = "../../assets/img/mushroomR.gif"
               //mushRoom1.isMoving = false

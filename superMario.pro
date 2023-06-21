@@ -66,6 +66,7 @@ DISTFILES += \
     qml/entities/Coins.qml\
     qml/ResetSensor.qml \
     qml/entities/Fireworks.qml \
+    qml/entities/Flag.qml \
     qml/levels/Level2.qml \
     qml/scenes/DeathScene.qml \
     qml/scenes/GameScene.qml \

@@ -5,8 +5,10 @@ EntityBase {
     id:mario
     height: 32
     width: 32
+    z:10
     entityType: "mario"
- signal timeup()
+
+
     //添加别名
     property alias collider: collider
     //speed
@@ -17,17 +19,21 @@ EntityBase {
     property bool isPress: false //默认没按下
     // the contacts property is used to determine if the player is in touch with any solid objects (like ground or platform), because in this case the player is walking, which enables the ability to jump. contacts > 0 --> walking state
     property int contacts: 0
-    //
-    property bool runover: false
+
+    property bool canControl: true
+
     // property binding to determine the state of the player like described abovestate = "jumping"
-    state: contacts > 0 ? "walking" : "jumping"
+    state: (contacts > 0 &&canControl==true)? "walking" : "jumping"
 
     //修改马里奥的运动状态资源
     function changeState(source){
         marioImage.source =source
         marioImage.playing = true
+        console.log("ppppppp")
 
     }
+
+
     function changeDirection(actionName){
         switch(actionName){
         case "left":
@@ -41,9 +47,20 @@ EntityBase {
         }
     }
 
-    function timeupslot(){
 
+
+    Timer{
+        id:changewalk
+        interval:3000
+        running:false
+        onTriggered: {
+
+            changeState("../../assets/img/img/basePerson.gif")
+            toend.start()
+        }
     }
+
+
 
     Timer{
         id:keep
@@ -68,7 +85,7 @@ EntityBase {
 
         keep.running=true
         mario.z = 150
-        //collider.active = false
+
         die.running = true
 
 
@@ -76,6 +93,17 @@ EntityBase {
 
     function helpMushroom(){
         gameScene.reloader()
+    }
+
+    function marioClimb(){
+
+        marioImage.source = "../../assets/img/img/climbing.png"
+        climb.start()
+        changewalk.running=true
+
+
+        //collider.active = true
+
     }
 
     //实现马里奥跳跃
@@ -99,7 +127,12 @@ EntityBase {
             }else{
                 marioImage.source = isRight ? "../../assets/img/img/basePerson.png":"../../assets/img/img/basePersonL.png"
             }
+
             marioImage.playing=true
+        }else if(state == "win"){
+            horizontalVelocity = 0
+            collider.active = false
+            marioImage.source = "../../assets/img/img/basePerson.gif"
         }
     }
 
@@ -130,44 +163,7 @@ EntityBase {
 
     }
 
-    /*Timer {
-            id: resurgenceTimer
-            interval: 3000 // 适当的时间间隔
-            running: false
-            repeat: false
-
-
-            onTriggered: {
-
-                console.log("Mario was killed by a mushroom")
-                collider.active=true
-                if(marioLives > 0){
-                   marioLives--
-
-                    console.log(".....")
-                   mario.collider.active = true
-                   mario.closeKeep()
-                   mario.changeState("../../assets/img/img/basePerson.png")
-                   mario.y=0
-                   mario.x=128
-                   mario.visible=true
-
-                   gameScene.reloader()
-
-                    gameWindow.state = "death"
-                    deathScene.state = "play"
-
-              }
-                else{
-                    console.log("Mario is really dead")
-
-                }
-
-            }
-        }*/
-
-
-
+ //马里奥被蘑菇撞死的动画
     SequentialAnimation{
         running: false
         id:die
@@ -186,13 +182,62 @@ EntityBase {
             duration: 1000
 
         }
-        PropertyAction{
+        /*PropertyAction{
             target: mario
             property: "visible"
             value: false
 
-        }
+        }*/
     }
+
+    //马里奥在旗杆上爬下来
+
+
+       SequentialAnimation{
+           id:climb
+           NumberAnimation{
+               target: mario
+               property: "x"
+               from:mario.x
+               to:mario.x+20
+               duration: 100
+
+           }
+
+           NumberAnimation{
+
+               target: mario
+               property: "y"
+               from:150
+               to:390
+               duration: 3000
+           }
+
+          /* PropertyAction{
+               target: marioImage
+               property: "source"
+               value: "../../assets/img/img/climbing-l"
+           }*/
+
+       }
+
+
+
+        NumberAnimation{
+            id:toend
+            target: mario
+            property: "x"
+            from:1150
+            to:1500
+            duration: 4000
+        }
+
+
+
+
+
+
+
 
     //马里奥外观
     AnimatedImage {
@@ -221,23 +266,7 @@ EntityBase {
             if(linearVelocity.x < -140) linearVelocity.x = -140
 
         }
-        /*fixture.onBeginContact: {
-            var otherEntity = other.getBody().target
-        if(otherEntity.entityType === "mushRoom1"  ){     //如果马里奥接触的是蘑菇身子
-            //console.log("Mario killed the mushroom")
-            //mushroom.source = "../../assets/img/mushroomR.gif"
-            //mushRoom1.isMoving = false
-            //drop.start()
-            //collider.active=false
-            mario.runover = true
-            mario.hitKill()     //首先马里奥展现死亡动画
 
-            resurgenceTimer.running = true      //处理马里奥死亡后的场景重建等
-            collider.active=false   //马里奥不能再撞到蘑菇
-
-
-           }
-        }*/
 
 
 
@@ -249,6 +278,15 @@ EntityBase {
         if (x < 0) {
             x = 0
         }
+
+       /* if (x >1086 && x<1092){
+            console.log("llllll")
+
+            state = "win"
+            marioClimb()
+
+
+        }*/
     }
 
     //实现减速

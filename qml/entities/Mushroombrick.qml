@@ -53,17 +53,15 @@ BrickBase {
         if(otherEntity.entityType === "mario"&& mario.y>mushroomBrick.y+25 && mario.x>mushroomBrick.x-31 ) {
           mushroombrick.source = "../../assets/img/img/map-nothing.png"
           brickrise.start()
-          if(thismush.isMoving==false && thismush.isdead == false)
-          thismush.appearl()
-
-
+          if(  thismush.isdead == false){
+              console.log("dddd")
+              thismush.appearl()
+          }
+//thismush.isMoving==false &&
 
         }
     }
 }
-    function mushroombrickReset(){
-        mushroombrick.playing = true
-        mushroombrick.source = "../../assets/img/map-ask.gif"
-    }
+
 
 }

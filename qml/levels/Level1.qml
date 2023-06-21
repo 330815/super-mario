@@ -54,7 +54,7 @@ Levels.LevelBase {
 
 
     Coinbrick{
-        id:coinbrick1
+
         coinsQuantity: 5
         row: 8
         column: 5
@@ -65,13 +65,16 @@ Levels.LevelBase {
         id:mushroom0
         direction: 1
         row:15
-        column: 6
+        column: 7
         size: 4
+
+        anchors.centerIn: mushroombrick0
+
     }
 
     Mushroombrick{
         thismush: mushroom0
-        id:mushbrick1
+        id: mushroombrick0
         row:15
         column: 5
         size: 4
@@ -84,14 +87,14 @@ Levels.LevelBase {
     }
 
     Coinbrick{
-        id:coinbrick2
+
         row: 17
         column: 5
         size: 4
     }
 
     Coinbrick{
-        id:coinbrick3
+
         row: 16
         column: 8
         size:4
@@ -107,13 +110,14 @@ Levels.LevelBase {
         id:mushroom1
         direction: 0
         row:27
-        column: 6
+        column: 7
         size:4
+        anchors.centerIn: mushroombrick1
     }
 
 
     Mushroombrick{
-        id:mushbrick2
+        id:mushroombrick1
         thismush: mushroom1
         row:27
         column: 5
@@ -128,28 +132,40 @@ Levels.LevelBase {
         size: 4
     }
 
-   /* function resetScene(){
+    Mushroom{
+        row:50
+        column: 2
+        size:4
+        visible: true
 
-        sumCoins = 0
-        scores = 0
-        mario.y=0
-        mario.x=128
-        mushroom0.resetMushroom()
-        mushroom0.x = 490
-        mushroom0.y = 270
-        mushroom1.resetMushroom()
-        mushroom1.x = 867
-        mushroom1.y = 270
-        mushbrick1.mushroombrickReset()
-        mushbrick2.mushroombrickReset()
-        coinbrick1.restoreCoinbrick()
-        coinbrick2.restoreCoinbrick()
-        coinbrick3.restoreCoinbrick()
+    }
+
+    Mushroom{
+        row:52
+        column: 5
+        size:4
+        visible: true
+    }
+
+    Mushroom{
+        row:54
+        column: 5
+        size:4
+        visible: true
+    }
+
+    Flag{
+       row:55
+       column: 10
 
 
+    }
 
-    }*/
+    Castle{
+        row:60
+        column: 6
 
+    }
 
 
 

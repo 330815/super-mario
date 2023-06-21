@@ -95,6 +95,8 @@ GameWindow {
             PropertyChanges {target: gameWindow; activeScene: deathScene}
         }
 
+
+
     ]
 
 

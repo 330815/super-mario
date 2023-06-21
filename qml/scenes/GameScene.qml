@@ -19,7 +19,7 @@ SceneBase {
     // reset time and timer
     function resetLeftTime() {
 
-      times = 10  //游戏限时400s
+      times = 40  //游戏限时400s
       timer.running = true
 
     }
@@ -100,6 +100,7 @@ SceneBase {
         id: controller
         //处理按键变化时，图片的变化
         onInputActionPressed: {
+            if(mario.canControl == true){
             if(mario.state == "walking"){
                 if(actionName == "left") {
                     // 左键按下
@@ -132,6 +133,7 @@ SceneBase {
 
             }
         }
+        }
         onInputActionReleased: {
             if(mario.state == "walking"){
                 if(actionName == "left") {
@@ -149,8 +151,8 @@ SceneBase {
         }
     }
 
-
-
-
-
 }
+
+
+
+
