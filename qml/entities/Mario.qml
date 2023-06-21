@@ -45,8 +45,6 @@ EntityBase {
         interval: 10 // 适当的时间间隔
         running: false
         repeat: true
-
-
         onTriggered: {
 
             marioImage.source = "../../assets/img/img/diePerson.png"
@@ -54,6 +52,7 @@ EntityBase {
         }
     }
 
+    //使马里奥保持死亡姿势
     function closeKeep(){
         keep.running = false
     }
@@ -63,12 +62,8 @@ EntityBase {
     function hitKill(){
 
         keep.running=true
-        console.log(mario.z)
-                    console.log(level.z)
-
-
-        collider.active = false
-        marioImage.source = "../../assets/img/img/diePerson.png"
+        mario.z = 150
+        //collider.active = false
         die.running = true
 
 
@@ -103,10 +98,12 @@ EntityBase {
 
             if(marioLives > 0){
                 console.log("Mario fell dead")
-                marioLives--
-                level.resetScene()
                 mario.y=0
                 mario.x=128
+                mario.z=0
+                marioLives--
+                level.resetScene()
+
             }
             else{
 
@@ -132,8 +129,14 @@ EntityBase {
             target: mario
             property: "y"
             from:mario.y-100
-            to:500
+            to:446
             duration: 1000
+
+        }
+        PropertyAction{
+            target: mario
+            property: "visible"
+            value: false
 
         }
     }

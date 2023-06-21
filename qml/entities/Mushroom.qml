@@ -13,7 +13,7 @@ TiledEntityBase {
     property bool isMoving: false  //默认状态下不移动
     property real moveSpeed: 1 // 设置水平移动的速度
     property int direction:0     //用于指定蘑菇的移动方向
-   // property url picture: "../../assets/img/mushroom.gif"
+    property bool isdead:false  //默认蘑菇存活
 
 
     AnimatedImage {
@@ -92,14 +92,14 @@ TiledEntityBase {
                 }
 
 
-
+  //蘑菇的重生
     function resetMushroom(){
         mushroom.playing = true
         mushroom.source = "../../assets/img/mushroom.gif"
         mushRoom1.visible =false
         collider.active = true
         mushRoom1.isMoving = false
-
+        mushRoom1.isdead = false
 
         dietimer.running = false
     }
@@ -159,6 +159,7 @@ TiledEntityBase {
            onTriggered: {
 
                console.log("Mario was killed by a mushroom")
+               collider.active=true
                if(mario.marioLives>0){
                mario.marioLives--
                mario.collider.active = true
@@ -166,7 +167,7 @@ TiledEntityBase {
                mario.changeState("../../assets/img/img/basePerson.png")
                mario.y=0
                mario.x=128
-
+               mario.visible=true
                level.resetScene()}
                else{
                    console.log("Mario is really dead")
@@ -196,23 +197,24 @@ TiledEntityBase {
 
         fixture.onBeginContact: {
           var otherEntity = other.getBody().target
-          if(otherEntity.entityType === "mario" && mario.y < mushRoom1.y-30 ){
+          if(otherEntity.entityType === "mario" && mario.y < mushRoom1.y-30 ){         //如果马里奥接触的是蘑菇盖
               console.log("Mario stepped on the mushrooms")
-              mushroom.source = "../../assets/img/img/mushroom-die.gif"
-              mushRoom1.isMoving = false
-              dietimer.running = true
-
+              mushRoom1.isdead = true                     //蘑菇被踩死
+              mushroom.source = "../../assets/img/img/mushroom-die.gif"       //蘑菇图片设置为死亡的蘑菇
+              mushRoom1.isMoving = false      //蘑菇不动了
+              scores += 100                  //踩死蘑菇得100分
+              dietimer.running = true       //调用计时器，蘑菇消失
           }
 
-          if(otherEntity.entityType === "mario" && mario.y > mushRoom1.y-30){
+          if(otherEntity.entityType === "mario" && mario.y > mushRoom1.y-30 && mushRoom1.isdead == false){     //如果马里奥接触的是蘑菇身子
               //console.log("Mario killed the mushroom")
               //mushroom.source = "../../assets/img/mushroomR.gif"
               //mushRoom1.isMoving = false
               //drop.start()
               //collider.active=false
-
-              mario.hitKill()
-              resurgenceTimer.running = true
+              mario.hitKill()     //首先马里奥展现死亡动画
+              resurgenceTimer.running = true      //处理马里奥死亡后的场景重建等
+              collider.active=false   //马里奥不能再撞到蘑菇
 
 
           }

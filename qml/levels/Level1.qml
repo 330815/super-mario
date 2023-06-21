@@ -55,6 +55,7 @@ Levels.LevelBase {
 
     Coinbrick{
         id:coinbrick1
+        coinsQuantity: 5
         row: 8
         column: 5
         size: 4
@@ -128,6 +129,8 @@ Levels.LevelBase {
     }
 
     function resetScene(){
+        sumCoins = 0
+        scores = 0
         mushroom0.resetMushroom()
         mushroom0.x = 490
         mushroom0.y = 270

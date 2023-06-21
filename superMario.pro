@@ -61,9 +61,11 @@ macx {
 
 DISTFILES += \
     assets/Sounds/lose.wav \
+    qml/entities/Castle.qml \
     qml/entities/Coin.qml\
     qml/entities/Coins.qml\
     qml/ResetSensor.qml \
+    qml/entities/Fireworks.qml \
     qml/scenes/DeathScene.qml \
     qml/scenes/GameScene.qml \
     qml/scenes/SceneBase.qml \
