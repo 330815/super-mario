@@ -9,21 +9,31 @@ SceneBase {
     id:gameScene
     gridSize: 32
     //马里奥固定位置X坐标
+
     property int offsetBeforeScrollingStarts: 240
-    //游戏时间倒计时
 
+    // the name of the currently loaded level
+    property string activeLevelString : "Level1"
+    property Loader scenelevel: level
 
+    // reset time and timer
+    function resetLeftTime() {
+
+      times = 10  //游戏限时400s
+      timer.running = true
+
+    }
+
+    function reloader(){
+        activeLevelString = "LevelBase"
+        activeLevelString = "Level1"
+        sumCoins = 0
+        scores = 0
+    }
 
     EntityManager {
         id: entityManager
     }
-
-    State {
-        name: "play"
-        StateChangeScript {script: audioManager.handleMusic()}
-    }
-
-
 
     //实体
     Item{
@@ -32,11 +42,14 @@ SceneBase {
         width: level.width
         anchors.bottom: gameScene.gameWindowAnchorItem.bottom
         x: mario.x > offsetBeforeScrollingStarts ? offsetBeforeScrollingStarts-mario.x : 0  //控制马里奥始终在中心
-        //第一关地图
-        Level1{
-            id:level
-            z:100
+        //加载地图
+        Loader {
+          id: level
+          // this binding gets cleared when restart city is pressed
+          source: "../levels/"+ activeLevelString + ".qml"
+          z:10
         }
+
         //主背景
         BackgroundImage{
             fillMode: Image.TileHorizontally    //水平平铺
@@ -58,27 +71,24 @@ SceneBase {
         }
 
 
-        ResetSensor{
 
-        }
+    ResetSensor{
+}
     }
-//    function resetLevel() {
 
-
-//      // reset time and timer
-//      times = 400
-//      timer.restart()
-//    }
     //游戏时间倒计时
     Timer {
         id: timer
         interval: 1000 // 1秒钟
-        running: true
+        running: false
         repeat: true
         onTriggered: {
             times--
+            //时间到，，跳转death界面，此时death界面state为timeup
             if(times <= 0) {
                 timer.stop()
+                gameWindow.state = "death"
+                deathScene.state = "timeup"
             }
         }
     }

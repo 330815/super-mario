@@ -149,32 +149,41 @@ TiledEntityBase {
         }
     }
 
-   Timer {
-           id: resurgenceTimer
-           interval: 3000 // 适当的时间间隔
-           running: false
-           repeat: false
+    Timer {
+            id: resurgenceTimer
+            interval: 3000 // 适当的时间间隔
+            running: false
+            repeat: false
 
 
-           onTriggered: {
+            onTriggered: {
 
-               console.log("Mario was killed by a mushroom")
-               collider.active=true
-               if(mario.marioLives>0){
-               mario.marioLives--
-               mario.collider.active = true
-               mario.closeKeep()
-               mario.changeState("../../assets/img/img/basePerson.png")
-               mario.y=0
-               mario.x=128
-               mario.visible=true
-               level.resetScene()}
-               else{
-                   console.log("Mario is really dead")
-               }
+                console.log("Mario was killed by a mushroom")
+                collider.active=true
+                if(marioLives > 0){
+                   marioLives--
+                   mario.collider.active = true
+                   mario.closeKeep()
+                   mario.changeState("../../assets/img/img/basePerson.png")
+                   mario.y=0
+                   mario.x=128
+                   mario.visible=true
 
-           }
-       }
+
+                    mario.helpMushroom()
+
+
+
+              }
+                else{
+                    console.log("Mario is really dead")
+
+                }
+
+            }
+        }
+
+
 
 
 
@@ -202,8 +211,9 @@ TiledEntityBase {
               mushRoom1.isdead = true                     //蘑菇被踩死
               mushroom.source = "../../assets/img/img/mushroom-die.gif"       //蘑菇图片设置为死亡的蘑菇
               mushRoom1.isMoving = false      //蘑菇不动了
-              scores += 100                  //踩死蘑菇得100分
+              scores += 100     //踩死蘑菇得100分
               dietimer.running = true       //调用计时器，蘑菇消失
+
           }
 
           if(otherEntity.entityType === "mario" && mario.y > mushRoom1.y-30 && mushRoom1.isdead == false){     //如果马里奥接触的是蘑菇身子
@@ -213,6 +223,7 @@ TiledEntityBase {
               //drop.start()
               //collider.active=false
               mario.hitKill()     //首先马里奥展现死亡动画
+
               resurgenceTimer.running = true      //处理马里奥死亡后的场景重建等
               collider.active=false   //马里奥不能再撞到蘑菇
 
@@ -220,7 +231,7 @@ TiledEntityBase {
           }
 
 
-    }
 
+   }
   }
 }

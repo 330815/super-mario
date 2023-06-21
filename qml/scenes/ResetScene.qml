@@ -5,8 +5,5 @@ GameScene {
 
     id: resetScene
     property supermarioMain mother:GameWindow
-    function reset(){
-
-    }
 
 }

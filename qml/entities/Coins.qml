@@ -26,7 +26,6 @@ Item {
 
             coin1.appear()
 
-
              }
         if(circulate == 2){
 

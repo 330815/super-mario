@@ -10,15 +10,21 @@ import "../common"
 SceneBase {
     id:startScene
     gridSize: 32
-    signal gameStart
+    //signal gameStart
+
+    //按下P键，进行游戏，该函数对游戏进行初始化
+    //deathscene呈现两秒，，加载地图，，马里奥初始状态
+    function initGame(){
+        //boardBox.active = false //板子不再可碰撞
+
+        worlds = lvImage1.visible ? "1-1":"1-2"
+
+        gameWindow.state = "death"
+        deathScene.state = "play"
+    }
 
     EntityManager {
         id: entityManager
-    }
-
-    State {
-        name: "start"
-        StateChangeScript {script: audioManager.handleMusic()}
     }
 
     //中心板
@@ -28,10 +34,13 @@ SceneBase {
         x:180
         y:80
         z:5
-        BoxCollider {
-            anchors.fill: parent
-            bodyType: Body.Static
-        }
+//        BoxCollider {
+//            id:boardBox
+//            anchors.fill: parent
+//            bodyType: Body.Static
+//            enabled: false
+//            active: false
+//        }
     }
     //小声明
     Text{
@@ -45,13 +54,13 @@ SceneBase {
         z:2
     }
 
-/*********关卡选择********/
+    /*********关卡选择********/
     ThemeText{
         id:selectLevel
         anchors.top: startBoard.bottom
         anchors.topMargin: 30
-        text:qsTr("SELECT:TAB   CONFIRM:ENTER")
-        x:185
+        text:qsTr("SELECT:TAB   CONFIRM:P")
+        x:200
     }
     ThemeText{
         id:slctLevel1
@@ -66,7 +75,7 @@ SceneBase {
             visible: true
         }
         text:qsTr("WORLD~1-1")
-        x:200
+        x:210
     }
     ThemeText{
         id:slctLevel2
@@ -85,20 +94,22 @@ SceneBase {
     }
 
     Keys.onPressed:  {
-           //SELECT
-           if(event.key === Qt.Key_Tab){
-               lvImage1.visible =!lvImage1.visible
-               lvImage2.visible =!lvImage2.visible
+        //SELECT
+        if(event.key === Qt.Key_Tab){
+            lvImage1.visible =!lvImage1.visible
+            lvImage2.visible =!lvImage2.visible
 
-               //handle level
-           }
+            //handle level
+            gameScene.activeLevelString = lvImage1.visible ? "Level1":"Level2"
+        }
 
-           //CONFIRM
-           if (event.key === Qt.Key_P) {
-               gameStart()
-           }
+        //CONFIRM
+        if (event.key === Qt.Key_P) {
+            initGame()
 
-       }
+        }
+
+    }
 
     //实体
     Item{
@@ -114,6 +125,7 @@ SceneBase {
             id: physicsWorld
             gravity: Qt.point(0, 30)
         }
+
         LevelStart{
             id:level
             z:1

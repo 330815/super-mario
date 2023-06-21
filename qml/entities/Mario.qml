@@ -6,8 +6,7 @@ EntityBase {
     height: 32
     width: 32
     entityType: "mario"
-    property int marioLives: 3
-
+ signal timeup()
     //添加别名
     property alias collider: collider
     //speed
@@ -18,6 +17,8 @@ EntityBase {
     property bool isPress: false //默认没按下
     // the contacts property is used to determine if the player is in touch with any solid objects (like ground or platform), because in this case the player is walking, which enables the ability to jump. contacts > 0 --> walking state
     property int contacts: 0
+    //
+    property bool runover: false
     // property binding to determine the state of the player like described abovestate = "jumping"
     state: contacts > 0 ? "walking" : "jumping"
 
@@ -38,6 +39,10 @@ EntityBase {
         default:
             break;
         }
+    }
+
+    function timeupslot(){
+
     }
 
     Timer{
@@ -69,6 +74,10 @@ EntityBase {
 
     }
 
+    function helpMushroom(){
+        gameScene.reloader()
+    }
+
     //实现马里奥跳跃
     function jump() {
         if(mario.state == "walking") {
@@ -76,6 +85,7 @@ EntityBase {
         collider.linearVelocity.y = -550
         audioManager.playSound("marioJump")
         }
+
 
     }
 
@@ -102,18 +112,61 @@ EntityBase {
                 mario.x=128
                 mario.z=0
                 marioLives--
-                level.resetScene()
+                gameWindow.state = "death"
+                deathScene.state = "play"
+                gameScene.reloader()
+
+
 
             }
             else{
 
                 console.log("Mario is really dead this time")
+
             }
 
 
         }
 
     }
+
+    /*Timer {
+            id: resurgenceTimer
+            interval: 3000 // 适当的时间间隔
+            running: false
+            repeat: false
+
+
+            onTriggered: {
+
+                console.log("Mario was killed by a mushroom")
+                collider.active=true
+                if(marioLives > 0){
+                   marioLives--
+
+                    console.log(".....")
+                   mario.collider.active = true
+                   mario.closeKeep()
+                   mario.changeState("../../assets/img/img/basePerson.png")
+                   mario.y=0
+                   mario.x=128
+                   mario.visible=true
+
+                   gameScene.reloader()
+
+                    gameWindow.state = "death"
+                    deathScene.state = "play"
+
+              }
+                else{
+                    console.log("Mario is really dead")
+
+                }
+
+            }
+        }*/
+
+
 
     SequentialAnimation{
         running: false
@@ -168,8 +221,29 @@ EntityBase {
             if(linearVelocity.x < -140) linearVelocity.x = -140
 
         }
+        /*fixture.onBeginContact: {
+            var otherEntity = other.getBody().target
+        if(otherEntity.entityType === "mushRoom1"  ){     //如果马里奥接触的是蘑菇身子
+            //console.log("Mario killed the mushroom")
+            //mushroom.source = "../../assets/img/mushroomR.gif"
+            //mushRoom1.isMoving = false
+            //drop.start()
+            //collider.active=false
+            mario.runover = true
+            mario.hitKill()     //首先马里奥展现死亡动画
+
+            resurgenceTimer.running = true      //处理马里奥死亡后的场景重建等
+            collider.active=false   //马里奥不能再撞到蘑菇
+
+
+           }
+        }*/
+
+
 
     }
+
+
     //马里奥不允许出左边界
     onXChanged: {
         if (x < 0) {

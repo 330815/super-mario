@@ -14,35 +14,38 @@ BrickBase{
     }
 
 
-        //Coinbrick's animation
-        SequentialAnimation{
-            id:brickrise
-            NumberAnimation{
-                target: coinBrick
-                property: "y"
-                from:coinBrick.y
-                to:coinBrick.y - 10
-                duration: 500
-                easing.type: Easing.OutQuint
-                running: false
-            }
-            NumberAnimation{
-                target: coinBrick
-                property: "y"
-                from:coinBrick.y - 10
-                to:coinBrick.y
-                duration: 500
-                easing.type: Easing.OutQuint
-                running: false
-            }
+    //Coinbrick's animation
+    SequentialAnimation{
+        id:brickrise
+        NumberAnimation{
+            target: coinBrick
+            property: "y"
+            from:coinBrick.y
+            to:coinBrick.y - 10
+            duration: 500
+            easing.type: Easing.OutQuint
+            running: false
         }
+        NumberAnimation{
+            target: coinBrick
+            property: "y"
+            from:coinBrick.y - 10
+            to:coinBrick.y
+            duration: 500
+            easing.type: Easing.OutQuint
+            running: false
+        }
+    }
 
 
 
     Coins{
         id:coins
+
         quantity: coinsQuantity
     }
+
+
 
 
 
@@ -52,6 +55,7 @@ BrickBase{
     BoxCollider {
         anchors.fill: parent
         bodyType: Body.Static
+
 
        fixture.onEndContact: {
         var otherEntity = other.getBody().target
@@ -67,12 +71,12 @@ BrickBase{
                   coins.circulate--
                 if(coins.circulate == 0)
                   coins.circulate=3
+
+
                 }
 
-          // if the player leaves a platform, we decrease its number of active contacts
-          //mario.contacts--
+            }
         }
-      }
 
     }
 

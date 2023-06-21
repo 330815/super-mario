@@ -17,13 +17,30 @@ GameWindow {
     screenWidth: 960
     screenHeight: 640
 
+    //the mario's score
+    property int scores : 0
+
+    property int sumCoins : 0
+
+    property string worlds: "0-0"
+
+    property int times:0
+
+    property int marioLives: 3
+
+    onMarioLivesChanged: {
+        if(marioLives == 0){
+            gameWindow.state = "death"
+            deathScene.state = "gameover"
+        }
+    }
 
     onActiveSceneChanged: {
-      audioManager.handleMusic()
+        audioManager.handleMusic()
     }
 
     AudioManager {
-      id: audioManager
+        id: audioManager
     }
     //font loader
     FontLoader {
@@ -40,10 +57,6 @@ GameWindow {
     StartScene{
         id:startScene
         anchors.left: parent.left
-        onGameStart: {
-          // switch to gameScene
-          gameWindow.state = "game"
-        }
     }
 
 
@@ -55,18 +68,13 @@ GameWindow {
 
 
 
-    SceneBase{
-        id:now
-
-    }
-
     DeathScene {
         id: deathScene
         anchors.left: parent.left
 
     }
 
-     //states
+    //states
     state: "start"
 
     // this state machine handles the transition between scenes
