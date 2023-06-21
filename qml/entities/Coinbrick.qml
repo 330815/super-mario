@@ -4,7 +4,10 @@ import Felgo 3.0
 BrickBase{
     id:coinBrick
 
+    property  int coinsQuatity :1
 
+    height: 32
+    width: 32
 
     AnimatedImage {
         id: coinbrickImage
@@ -41,7 +44,7 @@ BrickBase{
 
     Coins{
         id:coins
-        quatity: 5
+        quatity: coinsQuatity
 
     }
 

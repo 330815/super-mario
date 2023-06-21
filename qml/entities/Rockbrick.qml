@@ -3,16 +3,12 @@ import Felgo 3.0
 
 BrickBase {
 
-    id:ordinaryBrick
+    id:rockBrick
 
-//    AnimatedImage {
-//        id: ordinarybrick
-//        anchors.centerIn: parent
-//        source: "../../assets/img/img/map-stone.png"
+    width: gameScene.gridSize-4
+    height: gameScene.gridSize* size
 
-//    }
-    Row {
-
+    Column {
         id: groundRow
         spacing: 0      //每个方块空隙为0
         Repeater {
@@ -22,7 +18,7 @@ BrickBase {
                 Image{
                 width: 32
                 height: 32
-                source: "../../assets/img/img/map-stone.png"
+                source: "../../assets/img/img/map-rock.png"
                 fillMode: Image.Stretch
             }
         }

@@ -18,7 +18,7 @@ SceneBase {
     // reset time and timer
     function resetLeftTime() {
 
-      times = 10   //游戏限时400s
+      times = 400   //游戏限时400s
       timer.running = true
     }
 

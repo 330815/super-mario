@@ -30,7 +30,10 @@ SceneBase {
     //中心板
     Image{
         id:startBoard
-        source: "../../assets/img/startBoard.png"
+//        width: 32
+//        fillMode: Image.PreserveAspectFit
+//        source: "../../assets/img/B88A5C5EA393A27FDC967B74A7BBB72B.png"
+        source:"../../assets/img/startBoard.png"
         x:180
         y:80
         z:5

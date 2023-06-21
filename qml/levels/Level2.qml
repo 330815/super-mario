@@ -18,131 +18,121 @@ Levels.LevelBase {
 
         row:0
         column: 0
-        size: 30
+        size: 60
     }
     GroundItem{
         row:0
         column: 1
-        size: 30
+        size: 60
     }
 
 
-    GroundItem{
-        row:32
-        column: 0
-        size: 15
+    //brick
+
+    Mushroom{
+        id:mushroom0
+        direction: 1
+        row:20
+        column: 6
+        //size:1
+    }
+    Mushroombrick{
+        thismush: mushroom0
+        id:mushbrick1
+        row:20
+        column: 5
+        size: 1
     }
 
-    GroundItem{
-        row:32
-        column: 1
-        size: 15
+    Coinbrick{
+        id:coinbrick1
+        row: 27
+        column: 5
+    }
+    Ordinarybrick{
+        row:28
+        column: 5
+        size: 3
     }
 
-    GroundItem{
+    Coinbrick{
+        id:coinbrick2
+        row: 31
+        column: 5
+        coinsQuatity: 2
+    }
+
+
+    Rockbrick{
+        row:35
+        column: 2
+        size: 1
+    }
+
+    Rockbrick{
+        row:37
+        column: 3
+        size: 2
+    }
+
+    Rockbrick{
+        row:39
+        column: 4
+        size: 3
+    }
+
+    Rockbrick{
+        row:41
+        column: 5
+        size: 4
+    }
+
+    Rockbrick{
+        row:43
+        column: 5
+        size: 4
+    }
+
+    Rockbrick{
+        row:45
+        column: 4
+        size: 3
+    }
+
+    Rockbrick{
         row:47
-        column: 0
-        size: 30
-    }
-    GroundItem{
-        row:47
-        column: 1
-        size: 30
+        column: 3
+        size: 2
     }
 
+    Rockbrick{
+        row:49
+        column: 2
+        size: 1
+    }
 
 
 
-//    Coinbrick{
-//        id:coinbrick1
-//        row: 8
-//        column: 5
-//        size: 4
-//    }
-
-//    Mushroom{
-//        id:mushroom0
-//        direction: 1
-//        row:15
-//        column: 6
-//        size: 4
-//    }
-
-//    Mushroombrick{
-//        thismush: mushroom0
-//        id:mushbrick1
-//        row:15
-//        column: 5
-//        size: 4
-//    }
-
-//    Ordinarybrick{
-//        row:16
-//        column: 5
-//        size: 4
-//    }
-
-//    Coinbrick{
-//        id:coinbrick2
-//        row: 17
-//        column: 5
-//        size: 4
-//    }
-
-//    Coinbrick{
-//        id:coinbrick3
-//        row: 16
-//        column: 8
-//        size:4
-//    }
-
-//    Ordinarybrick{
-//        row:26
-//        column: 5
-//        size: 4
-//    }
-
-//    Mushroom{
-//        id:mushroom1
-//        direction: 0
-//        row:27
-//        column: 6
-//        size:4
-//    }
-
-
-//    Mushroombrick{
-//        id:mushbrick2
-//        thismush: mushroom1
-//        row:27
-//        column: 5
-//        size: 4
-//    }
 
 
 
-//    Ordinarybrick{
-//        row:28
-//        column: 5
-//        size: 4
-//    }
 
-//    function resetScene(){
-//        mushroom0.resetMushroom()
-//        mushroom0.x = 490
-//        mushroom0.y = 270
-//        mushroom1.resetMushroom()
-//        mushroom1.x = 867
-//        mushroom1.y = 270
-//        mushbrick1.mushroombrickReset()
-//        mushbrick2.mushroombrickReset()
-//        coinbrick1.restoreCoinbrick()
-//        coinbrick2.restoreCoinbrick()
-//        coinbrick3.restoreCoinbrick()
+    //    function resetScene(){
+    //        mushroom0.resetMushroom()
+    //        mushroom0.x = 490
+    //        mushroom0.y = 270
+    //        mushroom1.resetMushroom()
+    //        mushroom1.x = 867
+    //        mushroom1.y = 270
+    //        mushbrick1.mushroombrickReset()
+    //        mushbrick2.mushroombrickReset()
+    //        coinbrick1.restoreCoinbrick()
+    //        coinbrick2.restoreCoinbrick()
+    //        coinbrick3.restoreCoinbrick()
 
 
 
-//    }
+    //    }
 
 
 

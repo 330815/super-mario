@@ -5,12 +5,12 @@ TiledEntityBase{
 
     entityType: "platform"
     id:brickBase
-    height: 25
-    width: 32
+
 
     BoxCollider {
         id: collider
-        anchors.fill: parent
+        implicitWidth: parent.width-2
+        height: parent.height
         bodyType: Body.Static
 
         fixture.onBeginContact: {
@@ -18,6 +18,8 @@ TiledEntityBase{
             if(otherEntity.entityType === "mario") {
                 console.debug("contact platform start")
                 mario.contacts++
+                console.debug(width)
+                console.debug(height)
             }
         }
 

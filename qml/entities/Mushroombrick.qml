@@ -6,10 +6,11 @@ import "../levels"
 BrickBase {
     id:mushroomBrick
 
-    height: 25
-    width: 32
+
     property Mushroom thismush    //用于传入场景中不同的蘑菇
 
+    height: 32
+    width: 32
 
 
     AnimatedImage {

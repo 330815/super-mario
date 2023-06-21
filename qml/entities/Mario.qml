@@ -186,7 +186,7 @@ EntityBase {
             var xAxis = controller.xAxis;
             // if xAxis is 0 (no movement command) we slow the player down until he stops
             if(xAxis == 0) {
-                if(Math.abs(mario.horizontalVelocity) > 10) mario.horizontalVelocity /= 1.5
+                if(Math.abs(mario.horizontalVelocity) > 50) mario.horizontalVelocity /= 1.5
                 else mario.horizontalVelocity = 0
             }
         }

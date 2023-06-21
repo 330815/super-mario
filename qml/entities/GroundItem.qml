@@ -28,7 +28,7 @@ TiledEntityBase{
         //和马里奥碰撞
         fixture.onBeginContact: {
             var otherEntity = other.getBody().target
-            if(otherEntity.entityType === "mario") mario.contacts++
+            if(otherEntity.entityType === "mario") {mario.contacts++}
          }
         fixture.onEndContact: {
             var otherEntity = other.getBody().target

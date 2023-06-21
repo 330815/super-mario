@@ -64,6 +64,7 @@ DISTFILES += \
     qml/entities/Coin.qml\
     qml/entities/Coins.qml\
     qml/ResetSensor.qml \
+    qml/entities/Rockbrick.qml \
     qml/levels/Level2.qml \
     qml/scenes/DeathScene.qml \
     qml/scenes/GameScene.qml \
