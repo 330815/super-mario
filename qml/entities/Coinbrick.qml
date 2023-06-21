@@ -3,8 +3,7 @@ import Felgo 3.0
 
 BrickBase{
     id:coinBrick
-
-    property  int coinsQuatity :1
+    property int coinsQuantity: 1     //用于传入金币数量,默认为1
 
     height: 32
     width: 32
@@ -44,8 +43,8 @@ BrickBase{
 
     Coins{
         id:coins
-        quatity: coinsQuatity
 
+        quantity: coinsQuantity
     }
 
 
@@ -53,32 +52,34 @@ BrickBase{
         anchors.fill: parent
         bodyType: Body.Static
 
-        fixture.onEndContact: {
-            var otherEntity = other.getBody().target
-            if(otherEntity.entityType === "mario"&& mario.y>coinBrick.y+25 && mario.x>coinBrick.x-31) {
 
-                brickrise.start()
-                if(coins.quatity == 1){
-                    coinbrickImage.source = "../../assets/img/img/map-nothing.png"
-                }
-                if(coins.quatity > 0){
-                    console.log(coins.quatity)
+       fixture.onEndContact: {
+        var otherEntity = other.getBody().target
+        if(otherEntity.entityType === "mario"&& mario.y>coinBrick.y+25 && mario.x>coinBrick.x-31) {
+            brickrise.start()
+            if(coins.quantity == 1){                  //顶到最后一个金币时砖块变为普通砖块
+                coinbrickImage.source = "../../assets/img/img/map-nothing.png"
+               }
+            if(coins.quantity > 0){
+                coins.coinsAppear()        //     每顶一次，金币数量减1，数量减为0时重新设置为三
+                coins.quantity--
+                if(coins.circulate > 1)
+                  coins.circulate--
+                if(coins.circulate == 0)
+                  coins.circulate=3
 
-                    coins.coinsAppear()
-                    coins.quatity--
-                    if(coins.circulate>1)
-                        coins.circulate--
-                    if(coins.circulate==0)
-                        coins.circulate=3
+
                 }
+
             }
         }
 
     }
 
     function restoreCoinbrick(){
-        coinbrick.source = "../../assets/img/map-ask.gif"
-        coinbrick.playing = true
+        coinbrickImage.source = "../../assets/img/map-ask.gif"
+        coinbrickImage.playing = true
+        coins.quantity = coinsQuantity
 
     }
 }

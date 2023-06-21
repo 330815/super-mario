@@ -15,10 +15,12 @@ EntityBase {
     property bool isRight:true  //默认马里奥朝右
     //left-right press
     property bool isPress: false //默认没按下
+    //按键是否有效
+    property bool canControl:true
     // the contacts property is used to determine if the player is in touch with any solid objects (like ground or platform), because in this case the player is walking, which enables the ability to jump. contacts > 0 --> walking state
     property int contacts: 0
     // property binding to determine the state of the player like described abovestate = "jumping"
-    state: contacts > 0 ? "walking" : "jumping"
+    state: (contacts > 0 &&canControl==true)? "walking" : "jumping"
 
     //修改马里奥的运动状态资源
     function changeState(source){
@@ -26,6 +28,7 @@ EntityBase {
         marioImage.playing = true
 
     }
+
     function changeDirection(actionName){
         switch(actionName){
         case "left":
@@ -39,47 +42,43 @@ EntityBase {
         }
     }
 
-    Timer{
-        id:keep
-        interval: 10 // 适当的时间间隔
-        running: false
-        repeat: true
 
+    //使马里奥恢复初始状态，生命值-1
+    function marioReset(){
 
-        onTriggered: {
-
-            marioImage.source = "../../assets/img/img/diePerson.png"
-
-        }
+        canControl =false
+        mario.changeState("../../assets/img/img/basePerson.png")
+        mario.visible=true
+        x=128
+        y=0
+        marioLives--
+        //重新加载界面
+        gameScene.reloader()
     }
 
-    function closeKeep(){
-        keep.running = false
-    }
-
-
-
+    //马里奥死亡动画
     function hitKill(){
-
-        keep.running=true
-        console.log(mario.z)
-                    console.log(level.z)
-
-
-        collider.active = false
+        audioManager.playSound("marioDies")
+        canControl =false       //不再接受键盘消息
+        collider.active=false   //马里奥不能再撞到蘑菇
         marioImage.source = "../../assets/img/img/diePerson.png"
+        //最前面落下
+        mario.z = 150
+        //死亡画面和计时器同时进行
         die.running = true
-
+        resurgenceTimer.running = true
 
     }
+
 
     //实现马里奥跳跃
     function jump() {
         if(mario.state == "walking") {
-        // for the jump, we simply set the upwards velocity of the collider
-        collider.linearVelocity.y = -550
-        audioManager.playSound("marioJump")
+            // for the jump, we simply set the upwards velocity of the collider
+            collider.linearVelocity.y = -550
+            audioManager.playSound("marioJump")
         }
+
 
     }
 
@@ -97,21 +96,25 @@ EntityBase {
         }
     }
 
+    //马里奥不允许出左边界
+    onXChanged: {
+        if (x < 0) {
+            x = 0
+        }
+    }
+    //落下死亡
     onYChanged: {
-        if(y>800){
-
-            if(marioLives > 0){
-                console.log("Mario fell dead")
-                marioLives--
-                level.resetScene()
-                mario.y=0
-                mario.x=128
+        if(y>level.height){
+            audioManager.playSound("marioDies")
+            if(marioLives>0){       //gameover时不执行
+                gameWindow.state = "death"
+                deathScene.state = "play"
+                deathScene.startdsTimer()
             }
-            else{
-
-                console.log("Mario is really dead this time")
-            }
-
+            //马里奥死亡,,恢复初始状态
+            marioReset()
+            //            //重新加载界面
+            //            gameScene.reloader()
 
         }
 
@@ -131,8 +134,14 @@ EntityBase {
             target: mario
             property: "y"
             from:mario.y-100
-            to:500
-            duration: 1000
+            to:446
+            duration: 1300
+
+        }
+        PropertyAction{
+            target: mario
+            property: "visible"
+            value: false
 
         }
     }
@@ -144,6 +153,48 @@ EntityBase {
         source: "../../assets/img/img/basePerson.png"
         playing: true
 
+    }
+
+
+
+    //实现减速
+    Timer {
+        id: updateTimer
+
+        // Set this interval as high as possible to improve performance,
+        // but as low as needed so it still looks good.
+        interval: 60
+        running: true
+        repeat: true
+        onTriggered: {
+            var xAxis = controller.xAxis;
+            // if xAxis is 0 (no movement command) we slow the player down until he stops
+            if(xAxis == 0) {
+                if(Math.abs(mario.horizontalVelocity) > 50) mario.horizontalVelocity /= 1.5
+                else mario.horizontalVelocity = 0
+            }
+        }
+    }
+
+    //定时器结束，即死亡动画结束，，进行初始化
+    Timer {
+        id: resurgenceTimer
+        interval: 3000 // 适当的时间间隔
+        running: false
+        repeat: false
+
+        onTriggered: {
+            console.log("Mario was killed by a mushroom")
+            collider.active = true
+            if(marioLives>0){       //gameover时不执行
+                gameWindow.state = "death"
+                deathScene.state = "play"
+                deathScene.startdsTimer()
+            }
+            //马里奥死亡,,恢复初始状态
+            mario.marioReset()
+
+        }
     }
     //碰撞组件
     BoxCollider {
@@ -165,30 +216,6 @@ EntityBase {
 
         }
 
-    }
-    //马里奥不允许出左边界
-    onXChanged: {
-        if (x < 0) {
-            x = 0
-        }
-    }
 
-    //实现减速
-    Timer {
-        id: updateTimer
-
-        // Set this interval as high as possible to improve performance,
-        // but as low as needed so it still looks good.
-        interval: 60
-        running: true
-        repeat: true
-        onTriggered: {
-            var xAxis = controller.xAxis;
-            // if xAxis is 0 (no movement command) we slow the player down until he stops
-            if(xAxis == 0) {
-                if(Math.abs(mario.horizontalVelocity) > 50) mario.horizontalVelocity /= 1.5
-                else mario.horizontalVelocity = 0
-            }
-        }
     }
 }

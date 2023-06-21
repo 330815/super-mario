@@ -2,10 +2,11 @@ import QtQuick 2.0
 import Felgo 3.0
 import "../common"
 import "../entities"
-
+import "../levels"
 SceneBase {
     id:deathScene
-    signal gametest
+
+    //signal timeup()
 
     /**
      * States
@@ -17,6 +18,7 @@ SceneBase {
             PropertyChanges {target: lifeLose; visible: true}
             PropertyChanges {target: gameover; visible: false}
             PropertyChanges {target: timeup; visible: false}
+            PropertyChanges {target: deathSceneTimer; onTriggered:{gameScene.resetLeftTime();gameWindow.state = "game"}}
             StateChangeScript {script: startdsTimer()}
         },
         State {
@@ -24,8 +26,8 @@ SceneBase {
             PropertyChanges {target: lifeLose; visible: false}
             PropertyChanges {target: gameover; visible: true}
             PropertyChanges {target: timeup; visible: false}
-            PropertyChanges {target: deathSceneTimer; onTriggered:{gameWindow.state = "start";
-                //to do 所有元素初始化
+            //回到初始界面
+            PropertyChanges {target: deathSceneTimer; onTriggered:{gameWindow.state = "start";gameScene.reloader();marioLives = 3;
                 }}
             StateChangeScript {script: startdsTimer()}
         },
@@ -34,14 +36,19 @@ SceneBase {
             PropertyChanges {target: lifeLose; visible: false}
             PropertyChanges {target: gameover; visible: false}
             PropertyChanges {target: timeup; visible: true}
-            PropertyChanges {target: deathSceneTimer; onTriggered:{state = "play";marioLives--}}
+            PropertyChanges {target: deathSceneTimer; onTriggered:{state = marioLives >0? "play": "gameover"}}
             StateChangeScript {script: startdsTimer()}
+
         }
     ]
+
+
     //开始计时
     function startdsTimer(){
         deathSceneTimer.running = true
     }
+
+
 
     //mario die and life>0 生命值-1,本关重新开始
     Rectangle{
@@ -99,8 +106,10 @@ SceneBase {
         running: false
         repeat: false
         onTriggered: {
-            gameWindow.state = "game"
             gameScene.resetLeftTime()
+            gameWindow.state = "game"
+
+
         }
     }
 }

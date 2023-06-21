@@ -16,17 +16,13 @@ TiledEntityBase{
         fixture.onBeginContact: {
             var otherEntity = other.getBody().target
             if(otherEntity.entityType === "mario") {
-                console.debug("contact platform start")
                 mario.contacts++
-                console.debug(width)
-                console.debug(height)
             }
         }
 
         fixture.onEndContact: {
             var otherEntity = other.getBody().target
             if(otherEntity.entityType === "mario") {
-                console.debug("contact platform end")
                 mario.contacts--
 
             }

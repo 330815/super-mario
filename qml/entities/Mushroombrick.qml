@@ -20,6 +20,7 @@ BrickBase {
 
     }
 
+    //砖块被顶后上下移动的动画
     SequentialAnimation{
         id:brickrise
         NumberAnimation{
@@ -53,10 +54,11 @@ BrickBase {
             if(otherEntity.entityType === "mario"&& mario.y>mushroomBrick.y+25 && mario.x>mushroomBrick.x-31 ) {
                 mushroombrick.source = "../../assets/img/img/map-nothing.png"
                 brickrise.start()
-                if(thismush.isMoving==false)
+                if(thismush.isMoving==false && thismush.isdead == false)
+                    //蘑菇出现
                     thismush.appearl()
-            }
 
+            }
         }
     }
     function mushroombrickReset(){

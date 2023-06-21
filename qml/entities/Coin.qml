@@ -14,8 +14,11 @@ AnimatedImage{
 
     function appear()
     {
+        audioManager.playSound("getCoin")
         coin.visible=true
         rise.start()
+        sumCoins++
+        scores += 200
     }
 
 
@@ -26,8 +29,8 @@ AnimatedImage{
 
           target: coin
           property: "y"
-          from: coin.y
-          to: coin.y - 60 // 金币向上移动的距离
+          from: 0
+          to:-70  // 金币向上移动的距离
           duration: 1000 // 动画时长
           easing.type: Easing.OutQuint // 缓动效果
           running: false // 默认不运行动画

@@ -60,11 +60,11 @@ macx {
 }
 
 DISTFILES += \
-    assets/Sounds/lose.wav \
+    qml/entities/Castle.qml \
     qml/entities/Coin.qml\
     qml/entities/Coins.qml\
-    qml/ResetSensor.qml \
     qml/entities/Rockbrick.qml \
+    qml/entities/Fireworks.qml \
     qml/levels/Level2.qml \
     qml/scenes/DeathScene.qml \
     qml/scenes/GameScene.qml \
@@ -79,5 +79,4 @@ DISTFILES += \
     qml/entities/Ordinarybrick.qml \
     qml/levels/LevelStart.qml \
     qml/levels/LevelBase.qml \
-    qml/levels/Level1.qml \
-    qml/supermarioMain.qml
+    qml/levels/Level1.qml

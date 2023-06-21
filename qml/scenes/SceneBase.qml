@@ -44,13 +44,6 @@ Scene {
             spacing: 145
             ThemeText {
                 id: scoreTxt
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        scores += 100
-                    }
-                }
                 //六位数字
                 text: qsTr("MARIO\n\n"+String(scores).padStart(6, "0"))
             }

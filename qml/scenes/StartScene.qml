@@ -17,6 +17,8 @@ SceneBase {
     function initGame(){
         //boardBox.active = false //板子不再可碰撞
 
+        //handle level
+        gameScene.activeLevelString = lvImage1.visible ? "Level1":"Level2"
         worlds = lvImage1.visible ? "1-1":"1-2"
 
         gameWindow.state = "death"
@@ -30,9 +32,6 @@ SceneBase {
     //中心板
     Image{
         id:startBoard
-//        width: 32
-//        fillMode: Image.PreserveAspectFit
-//        source: "../../assets/img/B88A5C5EA393A27FDC967B74A7BBB72B.png"
         source:"../../assets/img/startBoard.png"
         x:180
         y:80
@@ -102,8 +101,6 @@ SceneBase {
             lvImage1.visible =!lvImage1.visible
             lvImage2.visible =!lvImage2.visible
 
-            //handle level
-            gameScene.activeLevelString = lvImage1.visible ? "Level1":"Level2"
         }
 
         //CONFIRM
@@ -154,6 +151,7 @@ SceneBase {
         id: controller
         //处理按键变化时，图片的变化
         onInputActionPressed: {
+
             if(mario.state == "walking"){
                 if(actionName == "left") {
                     // 左键按下

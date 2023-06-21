@@ -1,6 +1,5 @@
 import Felgo 3.0
 import QtQuick 2.0
-import QtLocation 5.15
 import "common"
 import "scenes"
 
@@ -16,7 +15,6 @@ GameWindow {
     // this resolution is for iPhone 4 & iPhone 4S
     screenWidth: 960
     screenHeight: 640
-
     //the mario's score
     property int scores : 0
 
@@ -35,7 +33,7 @@ GameWindow {
         }
     }
 
-    onActiveSceneChanged: {
+    onStateChanged: {
         audioManager.handleMusic()
     }
 
@@ -65,7 +63,6 @@ GameWindow {
         anchors.left: parent.left
 
     }
-
 
 
     DeathScene {

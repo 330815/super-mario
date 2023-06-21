@@ -8,18 +8,33 @@ import "../common"
 SceneBase {
     id:gameScene
     gridSize: 32
-    //马里奥固定位置X坐标
 
     property int offsetBeforeScrollingStarts: 240
 
     // the name of the currently loaded level
-    property string activeLevelString : "Level1"
+    property string activeLevelString:"LevelBase"
+    property Loader scenelevel: level
 
     // reset time and timer
     function resetLeftTime() {
 
-      times = 400   //游戏限时400s
-      timer.running = true
+        times = 400   //游戏限时400s
+        gametimer.running = true
+
+    }
+
+    //游戏界面重新加载
+    function reloader(){
+
+        //马里奥重新设置为可操作
+        mario.canControl=true
+        mario.contacts = 0
+        //游戏时长计时停止
+        gametimer.running = false
+        level.setSource(level.source)
+        sumCoins = 0
+        scores = 0
+        times = 0
     }
 
     EntityManager {
@@ -35,11 +50,12 @@ SceneBase {
         x: mario.x > offsetBeforeScrollingStarts ? offsetBeforeScrollingStarts-mario.x : 0  //控制马里奥始终在中心
         //加载地图
         Loader {
-          id: level
-          // this binding gets cleared when restart city is pressed
-          source: "../levels/"+ activeLevelString + ".qml"
-          z:10
+            id: level
+            // this binding gets cleared when restart city is pressed
+            source: "../levels/"+ activeLevelString + ".qml"
+            z:10
         }
+
         //主背景
         BackgroundImage{
             fillMode: Image.TileHorizontally    //水平平铺
@@ -61,22 +77,20 @@ SceneBase {
         }
 
 
-        ResetSensor{
-
-        }
     }
 
     //游戏时间倒计时
     Timer {
-        id: timer
+        id: gametimer
         interval: 1000 // 1秒钟
         running: false
         repeat: true
         onTriggered: {
             times--
-            //时间到，，跳转death界面，此时death界面state为timeup
-            if(times <= 0) {
-                timer.stop()
+            //时间到，，跳转death界面，此时death界面state为timeup&&marioLives>1
+            if(times <= 0 ) {
+                gametimer.stop()
+                mario.marioReset()
                 gameWindow.state = "death"
                 deathScene.state = "timeup"
             }
@@ -90,57 +104,57 @@ SceneBase {
         id: controller
         //处理按键变化时，图片的变化
         onInputActionPressed: {
-            if(mario.state == "walking"){
-                if(actionName == "left") {
-                    // 左键按下
-                    mario.isPress = true
-                    mario.changeState("../../assets/img/img/basePersonL.gif") // 设置为奔跑状态的GIF
-                    mario.changeDirection(actionName)//修改方向
+            if(mario.canControl===true){
+                if(mario.state == "walking"){
+                    if(actionName == "left") {
+                        // 左键按下
+                        mario.isPress = true
+                        mario.changeState("../../assets/img/img/basePersonL.gif") // 设置为奔跑状态的GIF
+                        mario.changeDirection(actionName)//修改方向
+                    }
+                    if(actionName == "right") {
+                        // 右键按下
+                        mario.isPress = true
+                        mario.changeState("../../assets/img/img/basePerson.gif") // 设置为奔跑状态的GIF
+                        mario.changeDirection(actionName)//修改方向
+                    }
+                }else if(mario.state == "jumping"){
+                    if(actionName == "left") {
+                        // 左键按下
+                        mario.isPress = true
+                        mario.changeState("../../assets/img/img/basePersonUpL.png")
+                        mario.changeDirection(actionName)//修改方向
+                    }
+                    if(actionName == "right") {
+                        // 右键按下
+                        mario.isPress = true
+                        mario.changeState("../../assets/img/img/basePersonUp.png")
+                        mario.changeDirection(actionName)//修改方向
+                    }
                 }
-                if(actionName == "right") {
-                    // 右键按下
-                    mario.isPress = true
-                    mario.changeState("../../assets/img/img/basePerson.gif") // 设置为奔跑状态的GIF
-                    mario.changeDirection(actionName)//修改方向
-                }
-            }else if(mario.state == "jumping"){
-                if(actionName == "left") {
-                    // 左键按下
-                    mario.isPress = true
-                    mario.changeState("../../assets/img/img/basePersonUpL.png")
-                    mario.changeDirection(actionName)//修改方向
-                }
-                if(actionName == "right") {
-                    // 右键按下
-                    mario.isPress = true
-                    mario.changeState("../../assets/img/img/basePersonUp.png")
-                    mario.changeDirection(actionName)//修改方向
-                }
-            }
-            if(actionName == "up") {    //跳跃
-                mario.jump()
+                if(actionName == "up") {    //跳跃
+                    mario.jump()
 
+                }
             }
         }
         onInputActionReleased: {
-            if(mario.state == "walking"){
-                if(actionName == "left") {
-                    mario.isPress = false
-                    mario.changeState("../../assets/img/img/basePersonL.png")
-                }else if(actionName == "right") {
-                    mario.isPress = false
-                    mario.changeState("../../assets/img/img/basePerson.png")
+            if(mario.canControl===true)
+                if(mario.state == "walking"){
+                    if(actionName == "left") {
+                        mario.isPress = false
+                        mario.changeState("../../assets/img/img/basePersonL.png")
+                    }else if(actionName == "right") {
+                        mario.isPress = false
+                        mario.changeState("../../assets/img/img/basePerson.png")
+                    }
+                }else if(mario.state == "jumping"){
+                    if(actionName == "left" || actionName == "right") {
+                        mario.isPress = false
+                    }
                 }
-            }else if(mario.state == "jumping"){
-                if(actionName == "left" || actionName == "right") {
-                    mario.isPress = false
-                }
-            }
         }
     }
-
-
-
-
-
 }
+
+
