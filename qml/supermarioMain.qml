@@ -15,17 +15,18 @@ GameWindow {
     // this resolution is for iPhone 4 & iPhone 4S
     screenWidth: 960
     screenHeight: 640
-    //the mario's score
+    //马里奥该关卡得分
     property int scores : 0
-
+    //马里奥吃的金币总数
     property int sumCoins : 0
-
+    //当前所在关卡
     property string worlds: "0-0"
-
+    //本关所剩时间
     property int times:0
-
+    //本局所剩生命
     property int marioLives: 3
 
+    //马里奥生命值为零，，游戏结束
     onMarioLivesChanged: {
         if(marioLives == 0){
             gameWindow.state = "death"
@@ -33,6 +34,7 @@ GameWindow {
         }
     }
 
+    //play music
     onStateChanged: {
         audioManager.handleMusic()
     }
@@ -40,6 +42,7 @@ GameWindow {
     AudioManager {
         id: audioManager
     }
+
     //font loader
     FontLoader {
         id: themeFont
@@ -50,6 +53,7 @@ GameWindow {
         id: introductionFont
         source: "../assets/fonts/introductionfont.ttf"  // 简介板中的字体
     }
+
     //Secene
 
     StartScene{

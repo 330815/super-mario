@@ -128,31 +128,5 @@ Levels.LevelBase {
         size: 4
     }
 
-   /* function resetScene(){
-
-        sumCoins = 0
-        scores = 0
-        mario.y=0
-        mario.x=128
-        mushroom0.resetMushroom()
-        mushroom0.x = 490
-        mushroom0.y = 270
-        mushroom1.resetMushroom()
-        mushroom1.x = 867
-        mushroom1.y = 270
-        mushbrick1.mushroombrickReset()
-        mushbrick2.mushroombrickReset()
-        coinbrick1.restoreCoinbrick()
-        coinbrick2.restoreCoinbrick()
-        coinbrick3.restoreCoinbrick()
-
-
-
-    }*/
-
-
-
-
-
 
 }

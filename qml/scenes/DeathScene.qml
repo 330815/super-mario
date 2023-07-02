@@ -6,12 +6,7 @@ import "../levels"
 SceneBase {
     id:deathScene
 
-    //signal timeup()
-
-    /**
-     * States
-     */
-
+    //修改可见界面，并设置计时器
     states: [
         State {
             name: "play"

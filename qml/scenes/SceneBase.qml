@@ -22,14 +22,7 @@ Scene {
     // only enable scene if it is visible
     enabled: visible
 
-    //the mario's score
-//    property int scores : 0
-
-//    property int sumCoins : 0
-
-//    property string worlds: "0-0"
-
-//    property int times:0
+    //the title on the top of scene
     Rectangle {
         z:1
         anchors.top: parent.top

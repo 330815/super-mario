@@ -1,23 +1,20 @@
 import QtQuick 2.0
 import Felgo 3.0
 import QtQuick.Controls 2.0
-
 import "../entities"
-
 import "../levels"
 import "../common"
 
 SceneBase {
     id:startScene
     gridSize: 32
-    //signal gameStart
 
     //按下P键，进行游戏，该函数对游戏进行初始化
     //deathscene呈现两秒，，加载地图，，马里奥初始状态
     function initGame(){
         //boardBox.active = false //板子不再可碰撞
 
-        //handle level
+        //修改当前所选关卡
         gameScene.activeLevelString = lvImage1.visible ? "Level1":"Level2"
         worlds = lvImage1.visible ? "1-1":"1-2"
 
@@ -105,6 +102,7 @@ SceneBase {
 
         //CONFIRM
         if (event.key === Qt.Key_P) {
+            //游戏进行初始化
             initGame()
 
         }
@@ -121,6 +119,7 @@ SceneBase {
             source: "../../assets/img/gk1.jpg"
             z:0     //最底层
         }
+        //创建物理世界
         PhysicsWorld {
             id: physicsWorld
             gravity: Qt.point(0, 30)
