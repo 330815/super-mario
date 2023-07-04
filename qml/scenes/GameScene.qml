@@ -20,7 +20,10 @@ SceneBase {
 
         times = 400   //游戏限时400s
         gametimer.running = true
+<<<<<<< HEAD
 
+=======
+>>>>>>> superMario/main
 
     }
 
@@ -106,6 +109,7 @@ SceneBase {
         id: controller
         //处理按键变化时，图片的变化
         onInputActionPressed: {
+<<<<<<< HEAD
 
             if(mario.canControl===true){
                 if(mario.state == "walking"){
@@ -139,6 +143,39 @@ SceneBase {
                 if(actionName == "up") {    //跳跃
                     mario.jump()
 
+=======
+            if(mario.canControl===true){
+                if(mario.state == "walking"){
+                    if(actionName == "left") {
+                        // 左键按下
+                        mario.isPress = true
+                        mario.changeState("../../assets/img/img/basePersonL.gif") // 设置为奔跑状态的GIF
+                        mario.changeDirection(actionName)//修改方向
+                    }
+                    if(actionName == "right") {
+                        // 右键按下
+                        mario.isPress = true
+                        mario.changeState("../../assets/img/img/basePerson.gif") // 设置为奔跑状态的GIF
+                        mario.changeDirection(actionName)//修改方向
+                    }
+                }else if(mario.state == "jumping"){
+                    if(actionName == "left") {
+                        // 左键按下
+                        mario.isPress = true
+                        mario.changeState("../../assets/img/img/basePersonUpL.png")
+                        mario.changeDirection(actionName)//修改方向
+                    }
+                    if(actionName == "right") {
+                        // 右键按下
+                        mario.isPress = true
+                        mario.changeState("../../assets/img/img/basePersonUp.png")
+                        mario.changeDirection(actionName)//修改方向
+                    }
+                }
+                if(actionName == "up") {    //跳跃
+                    mario.jump()
+
+>>>>>>> superMario/main
                 }
             }
         }
@@ -160,6 +197,7 @@ SceneBase {
                 }
         }
     }
+<<<<<<< HEAD
 
 
 }
@@ -168,3 +206,8 @@ SceneBase {
 
 
 
+=======
+}
+
+
+>>>>>>> superMario/main

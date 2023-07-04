@@ -13,5 +13,9 @@ d. Í¼ÐÎºÍÒôÐ§£ºÓÎÏ·±³¾°»á¸úËæÂíÀï°ÂµÄÒÆ¶¯¶øÒÆ¶¯¡£²»Í¬³¡¾°»á²¥·Å²»Í¬µÄ±³¾°ÒôÀÖ£¬Ì
 ¡¡¡¡¡¡¹¦ÄÜÊµÏÖ
 a. ÒôÀÖÄ£¿é£ºÊ¹ÓÃQtMultimedia 5.0£¬µ±gamewindowµÄstate±ä»¯Ê±£¬µ÷ÓÃBackgroundMusic£¬µ±Ä³¸ö¶¯×÷±»Ö´ÐÐ£¬´¥·¢ÏàÓ¦µÄÒôÐ§¡£
 b. ½çÃæÄ£¿é£ºÊ¹ÓÃPhysicsWorldÊµÏÖÎïÀíÄ£Äâ£¬BackgroundImageÎª½çÃæ±³¾°£¬TwoAxisController¿ØÖÆÓÎÏ·µÄ¶àÖáÔË¶¯£¬°´¼üÊÂ¼þ´«¸ø¸Ãcontroller.
+<<<<<<< HEAD
 c. µØÍ¼Ä£¿é£ºÓÎÏ·ÊÀ½çÊÇÏñËØ·ç£¬ËùÒÔÉèÖÃÒ»¸öÏñËØ¿éÎª32*32¡£µØÍ¼ÔªËØ¾Í¿ÉÒÔÍ¨¹ý½çÃæµÄ¶¨Î»À´·ÅÖÃ¡£
 d. ÎïÌåÄ£¿é£ºÂíÀï°ÂÊÀ½çÖÐµÄÎïÌå£¬ÈçÂíÀï°Â£¬°åÀõ×Ð¶¼Ìí¼ÓÁËÎïÀíÒýÇæ£¬ÏÈÎï»¯³ÉÒ»¸öÊµÌå£¬ÔÙ°ÑËûÃÇ×é×°ÆðÀ´£¬³ÉÎªÂíÀï°ÂÓÎÏ·ÊÀ½ç¡£
+=======
+c. µØÍ¼Ä£¿é£ºÓÎÏ·ÊÀ½çÊÇÏñËØ·ç£¬ËùÒÔÉèÖÃÒ»¸öÏñËØ¿éÎª32*32¡£µØÍ¼ÔªËØ¾Í¿ÉÒÔÍ¨¹ý½çÃæµÄ¶¨Î»À´·ÅÖÃ¡£
+>>>>>>> superMario/main

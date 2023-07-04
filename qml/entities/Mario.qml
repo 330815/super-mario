@@ -8,7 +8,10 @@ EntityBase {
     z:10
     entityType: "mario"
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> superMario/main
     //添加别名
     property alias collider: collider
     //speed
@@ -21,12 +24,15 @@ EntityBase {
     property bool canControl:true
     // the contacts property is used to determine if the player is in touch with any solid objects (like ground or platform), because in this case the player is walking, which enables the ability to jump. contacts > 0 --> walking state
     property int contacts: 0
+<<<<<<< HEAD
     //用于判断马里奥是否死亡
     property bool isdead: false
 
 
 
 
+=======
+>>>>>>> superMario/main
     // property binding to determine the state of the player like described abovestate = "jumping"
     state: (contacts > 0 &&canControl==true)? "walking" : "jumping"
 
@@ -51,6 +57,7 @@ EntityBase {
     }
 
 
+<<<<<<< HEAD
 
 
     Timer{
@@ -164,6 +171,26 @@ EntityBase {
         isdead = true
         canControl =false       //不再接受键盘消息
         //collider.active=false   //马里奥不能再撞到蘑菇
+=======
+    //使马里奥恢复初始状态，生命值-1
+    function marioReset(){
+
+        canControl =false
+        mario.changeState("../../assets/img/img/basePerson.png")
+        mario.visible=true
+        x=128
+        y=0
+        marioLives--
+        //重新加载界面
+        gameScene.reloader()
+    }
+
+    //马里奥死亡动画
+    function hitKill(){
+        audioManager.playSound("marioDies")
+        canControl =false       //不再接受键盘消息
+        collider.active=false   //马里奥不能再撞到蘑菇
+>>>>>>> superMario/main
         marioImage.source = "../../assets/img/img/diePerson.png"
         //最前面落下
         mario.z = 150
@@ -204,7 +231,16 @@ EntityBase {
         }
     }
 
+<<<<<<< HEAD
 
+=======
+    //马里奥不允许出左边界
+    onXChanged: {
+        if (x < 0) {
+            x = 0
+        }
+    }
+>>>>>>> superMario/main
     //落下死亡
     onYChanged: {
         if(y>level.height){
@@ -223,9 +259,12 @@ EntityBase {
 
     }
 
+<<<<<<< HEAD
 
  //马里奥被蘑菇撞死的动画
 
+=======
+>>>>>>> superMario/main
     SequentialAnimation{
         running: false
         id:die
@@ -345,7 +384,11 @@ EntityBase {
 
         onTriggered: {
             console.log("Mario was killed by a mushroom")
+<<<<<<< HEAD
            // collider.active = true
+=======
+            collider.active = true
+>>>>>>> superMario/main
             if(marioLives>0){       //gameover时不执行
                 gameWindow.state = "death"
                 deathScene.state = "play"
@@ -377,6 +420,7 @@ EntityBase {
         }
 
 
+<<<<<<< HEAD
 
 
 
@@ -392,4 +436,7 @@ EntityBase {
     }
 
 
+=======
+    }
+>>>>>>> superMario/main
 }
