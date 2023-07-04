@@ -5,6 +5,8 @@ BrickBase{
     id:coinBrick
     property int coinsQuantity: 1     //用于传入金币数量,默认为1
 
+    height: 32
+    width: 32
 
     AnimatedImage {
         id: coinbrickImage
@@ -44,12 +46,6 @@ BrickBase{
 
         quantity: coinsQuantity
     }
-
-
-
-
-
-
 
 
     BoxCollider {

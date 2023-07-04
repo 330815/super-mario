@@ -6,20 +6,14 @@ import "../levels"
 SceneBase {
     id:deathScene
 
-    //signal timeup()
-
-    /**
-     * States
-     */
-
+    //修改可见界面，并设置计时器
     states: [
         State {
             name: "play"
             PropertyChanges {target: lifeLose; visible: true}
             PropertyChanges {target: gameover; visible: false}
             PropertyChanges {target: timeup; visible: false}
-            PropertyChanges {target: deathSceneTimer; onTriggered: {gameWindow.state = "game"; gameScene.resetLeftTime();console.log("aaaaaaaa")}}
-
+            PropertyChanges {target: deathSceneTimer; onTriggered:{gameScene.resetLeftTime();gameWindow.state = "game"}}
             StateChangeScript {script: startdsTimer()}
         },
         State {
@@ -27,8 +21,8 @@ SceneBase {
             PropertyChanges {target: lifeLose; visible: false}
             PropertyChanges {target: gameover; visible: true}
             PropertyChanges {target: timeup; visible: false}
-            PropertyChanges {target: deathSceneTimer; onTriggered:{gameWindow.state = "start";marioLives = 3
-                    //to do 所有元素初始化
+            //回到初始界面
+            PropertyChanges {target: deathSceneTimer; onTriggered:{gameWindow.state = "start";gameScene.reloader();marioLives = 3;
                 }}
             StateChangeScript {script: startdsTimer()}
         },
@@ -37,20 +31,12 @@ SceneBase {
             PropertyChanges {target: lifeLose; visible: false}
             PropertyChanges {target: gameover; visible: false}
             PropertyChanges {target: timeup; visible: true}
-            PropertyChanges {target: deathSceneTimer; onTriggered:{state = "play";marioLives--;gameScene.reloader()}}
+            PropertyChanges {target: deathSceneTimer; onTriggered:{state = marioLives >0? "play": "gameover"}}
             StateChangeScript {script: startdsTimer()}
 
         }
     ]
 
-    /*onStateChanged: {
-        if(deathScene.state == "timeup")
-            function sendtimeup(){
-                emit timeup()
-            }
-
-
-    }*/
 
     //开始计时
     function startdsTimer(){
@@ -115,8 +101,10 @@ SceneBase {
         running: false
         repeat: false
         onTriggered: {
-            gameWindow.state = "game"
             gameScene.resetLeftTime()
+            gameWindow.state = "game"
+
+
         }
     }
 }

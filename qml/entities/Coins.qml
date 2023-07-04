@@ -1,4 +1,3 @@
-
 import QtQuick 2.0
 import Felgo 3.0
 //这是一个金币包，里面有三个金币，可循环跳出,用于实现金币的连续顶出

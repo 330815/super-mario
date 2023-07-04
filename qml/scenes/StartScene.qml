@@ -1,22 +1,21 @@
 import QtQuick 2.0
 import Felgo 3.0
 import QtQuick.Controls 2.0
-
 import "../entities"
-
 import "../levels"
 import "../common"
 
 SceneBase {
     id:startScene
     gridSize: 32
-    //signal gameStart
 
     //按下P键，进行游戏，该函数对游戏进行初始化
     //deathscene呈现两秒，，加载地图，，马里奥初始状态
     function initGame(){
         //boardBox.active = false //板子不再可碰撞
 
+        //修改当前所选关卡
+        gameScene.activeLevelString = lvImage1.visible ? "Level1":"Level2"
         worlds = lvImage1.visible ? "1-1":"1-2"
 
         gameWindow.state = "death"
@@ -30,7 +29,7 @@ SceneBase {
     //中心板
     Image{
         id:startBoard
-        source: "../../assets/img/startBoard.png"
+        source:"../../assets/img/startBoard.png"
         x:180
         y:80
         z:5
@@ -99,12 +98,11 @@ SceneBase {
             lvImage1.visible =!lvImage1.visible
             lvImage2.visible =!lvImage2.visible
 
-            //handle level
-            gameScene.activeLevelString = lvImage1.visible ? "Level1":"Level2"
         }
 
         //CONFIRM
         if (event.key === Qt.Key_P) {
+            //游戏进行初始化
             initGame()
 
         }
@@ -121,6 +119,7 @@ SceneBase {
             source: "../../assets/img/gk1.jpg"
             z:0     //最底层
         }
+        //创建物理世界
         PhysicsWorld {
             id: physicsWorld
             gravity: Qt.point(0, 30)
@@ -151,6 +150,7 @@ SceneBase {
         id: controller
         //处理按键变化时，图片的变化
         onInputActionPressed: {
+
             if(mario.state == "walking"){
                 if(actionName == "left") {
                     // 左键按下

@@ -42,13 +42,14 @@ Levels.LevelBase {
     GroundItem{
         row:47
         column: 0
-        size: 30
+        size: 35
     }
     GroundItem{
         row:47
         column: 1
-        size: 30
+        size: 35
     }
+
 
 
 
@@ -67,8 +68,6 @@ Levels.LevelBase {
         row:15
         column: 7
         size: 4
-
-        anchors.centerIn: mushroombrick0
 
     }
 
@@ -112,7 +111,7 @@ Levels.LevelBase {
         row:27
         column: 7
         size:4
-        anchors.centerIn: mushroombrick1
+
     }
 
 
@@ -133,6 +132,7 @@ Levels.LevelBase {
     }
 
     Mushroom{
+        kind: "wild"
         row:50
         column: 2
         size:4
@@ -141,6 +141,7 @@ Levels.LevelBase {
     }
 
     Mushroom{
+        kind:"wild"
         row:52
         column: 5
         size:4
@@ -148,6 +149,7 @@ Levels.LevelBase {
     }
 
     Mushroom{
+        kind: "wild"
         row:54
         column: 5
         size:4
@@ -166,6 +168,44 @@ Levels.LevelBase {
         column: 6
 
     }
+
+    Ordinarybrick{
+        row:44
+        column: 5
+        size:4
+    }
+
+    Ordinarybrick{
+        row:43
+        column: 5
+        size:4
+    }
+
+    Ordinarybrick{
+        row:42
+        column: 5
+        size:4
+    }
+
+    Ordinarybrick{
+        row:41
+        column: 5
+        size:4
+    }
+
+    Ordinarybrick{
+        row:40
+        column:5
+        size:4
+    }
+
+    Coinbrick{
+        coinsQuantity: 10
+        row:42
+        column: 9
+        size:4
+    }
+
 
 
 

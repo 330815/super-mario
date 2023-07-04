@@ -14,6 +14,7 @@ AnimatedImage{
 
     function appear()
     {
+        audioManager.playSound("getCoin")
         coin.visible=true
         rise.start()
         sumCoins++

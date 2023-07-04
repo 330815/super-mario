@@ -4,7 +4,7 @@ import Felgo 3.0
 TiledEntityBase {
 
     id:flag
-    property int iftouch: mario.x
+    //property int iftouch: mario.x
 
 
     //旗帜
@@ -34,6 +34,7 @@ TiledEntityBase {
         height: 258
         x:-2
 
+
     }
 
     //底座
@@ -44,12 +45,27 @@ TiledEntityBase {
 
     }
 
-    onIftouchChanged: {
-        if(iftouch >1086 && iftouch <1092)
-            bannerdrop.running = true
+BoxCollider {
+     // anchors.fill: parent
+      height: 300
+      width: 5
+       bodyType: Body.Static
+
+
+      fixture.onBeginContact: {
+       var otherEntity = other.getBody().target
+       if(otherEntity.entityType === "mario") {
+           bannerdrop.running = true
+           //mario.state = "win"
+           mario.marioClimb()
+
+
+           }
+       }
 
     }
 
 
 
 }
+

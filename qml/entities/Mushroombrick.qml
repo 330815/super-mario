@@ -6,10 +6,11 @@ import "../levels"
 BrickBase {
     id:mushroomBrick
 
-    height: 25
-    width: 32
+
     property Mushroom thismush    //用于传入场景中不同的蘑菇
 
+    height: 32
+    width: 32
 
 
     AnimatedImage {
@@ -48,20 +49,28 @@ BrickBase {
         bodyType: Body.Static
 
 
-      fixture.onEndContact: {
-        var otherEntity = other.getBody().target
-        if(otherEntity.entityType === "mario"&& mario.y>mushroomBrick.y+25 && mario.x>mushroomBrick.x-31 ) {
-          mushroombrick.source = "../../assets/img/img/map-nothing.png"
-          brickrise.start()
-          if(  thismush.isdead == false){
-              console.log("dddd")
-              thismush.appearl()
-          }
-//thismush.isMoving==false &&
 
+        fixture.onEndContact: {
+            var otherEntity = other.getBody().target
+            if(otherEntity.entityType === "mario"&& mario.y>mushroomBrick.y+25 && mario.x>mushroomBrick.x-31 ) {
+                mushroombrick.source = "../../assets/img/img/map-nothing.png"
+                brickrise.start()
+                if(thismush.isMoving==false && thismush.isdead == false)
+                    //蘑菇出现
+                    thismush.appearl()
+
+
+            }
         }
     }
-}
+
+
+
+
+    function mushroombrickReset(){
+        mushroombrick.playing = true
+        mushroombrick.source = "../../assets/img/map-ask.gif"
+    }
 
 
 }
