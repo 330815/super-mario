@@ -131,7 +131,7 @@ Levels.LevelBase {
         size: 4
     }
 
-<<<<<<< HEAD
+
     Mushroom{
         kind: "wild"
         row:50
@@ -211,7 +211,6 @@ Levels.LevelBase {
 
 
 
-=======
->>>>>>> superMario/main
+
 
 }

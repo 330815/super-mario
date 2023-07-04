@@ -47,12 +47,6 @@ BrickBase {
     BoxCollider {
         anchors.fill: parent
         bodyType: Body.Static
-
-
-<<<<<<< HEAD
-
-=======
->>>>>>> superMario/main
         fixture.onEndContact: {
             var otherEntity = other.getBody().target
             if(otherEntity.entityType === "mario"&& mario.y>mushroomBrick.y+25 && mario.x>mushroomBrick.x-31 ) {
@@ -61,21 +55,10 @@ BrickBase {
                 if(thismush.isMoving==false && thismush.isdead == false)
                     //蘑菇出现
                     thismush.appearl()
-<<<<<<< HEAD
-
-=======
->>>>>>> superMario/main
-
             }
         }
     }
-<<<<<<< HEAD
 
-
-
-
-=======
->>>>>>> superMario/main
     function mushroombrickReset(){
         mushroombrick.playing = true
         mushroombrick.source = "../../assets/img/map-ask.gif"
